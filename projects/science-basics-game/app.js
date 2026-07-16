@@ -589,13 +589,14 @@ function showGameSummary() {
 
   const summary = document.createElement("section");
   summary.className = "finish-card";
+  const resultPercent = gameMax ? Math.round(score / gameMax * 100) : 0;
   summary.innerHTML = `
     <div class="result-lines" aria-hidden="true">
       <span></span><span></span><span></span>
     </div>
     <p class="finish-label">Game finished</p>
     <h4>Your score is ${score} / ${gameMax}</h4>
-    <p>Your current rank is #${activeRank}. You can try this game again or go to the next game.</p>
+    <p><strong>${resultPercent}%</strong> · Your current rank is #${activeRank}. You can try this game again or go to the next game.</p>
     <div class="finish-actions">
       <button class="action" type="button" id="play-again">Play again</button>
       <button class="action next-action" type="button" id="next-game">Next game</button>

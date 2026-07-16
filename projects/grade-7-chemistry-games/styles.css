@@ -40,3 +40,10 @@ main{width:min(1180px,calc(100% - 40px));margin:auto}.hero{min-height:calc(100vh
   .hero-visual{transform:scale(.6);margin-bottom:-90px}
   .brand b{font-size:11px}.metric{padding:8px 6px}.teacher-summary{grid-template-columns:1fr}
 }
+
+.mission-result-backdrop{position:fixed;inset:0;z-index:100;background:rgba(8,18,38,.76);backdrop-filter:blur(9px);display:grid;place-items:center;padding:18px}
+.mission-result{width:min(470px,100%);max-height:calc(100dvh - 28px);overflow-y:auto;background:#fff;border-radius:26px;padding:32px;text-align:center;box-shadow:0 26px 80px rgba(0,0,0,.3)}
+.mission-result-icon{font-size:64px;line-height:1}.mission-result>p{font-size:11px;letter-spacing:1.5px;font-weight:900;color:#a06500;margin:14px 0 7px}.mission-result h2{font-size:30px;margin:0;color:var(--ink)}
+.mission-result-score{font-size:58px;font-weight:950;color:var(--orange);line-height:1;margin:25px 0 10px}.mission-result-score span{font-size:22px;color:var(--muted)}
+.mission-result-total{color:var(--muted);font-weight:750;margin-bottom:22px}.mission-result .primary{width:100%}
+@media(max-width:590px){.mission-result{padding:25px 18px;border-radius:20px}.mission-result-score{font-size:48px}.mission-result h2{font-size:26px}}

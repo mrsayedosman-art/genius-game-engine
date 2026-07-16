@@ -88,7 +88,7 @@ const missions = [
 ];
 
 const $ = id => document.getElementById(id);
-const state = { id:"", name:"", score:0, mission:0, question:0, answered:0, startedAt:0, elapsed:0, timer:null, locked:false, sound:true, finished:false };
+const state = { id:"", name:"", score:0, mission:0, question:0, answered:0, startedAt:0, elapsed:0, timer:null, locked:false, sound:true, finished:false, missionStartScore:0 };
 const totalQuestions = missions.reduce((n,m)=>n+m.questions.length,0);
 const studentView=$("studentView"), teacherView=$("teacherView");
 
@@ -108,7 +108,7 @@ async function syncSession(status="playing"){
 function openJoin(){$("joinModal").classList.remove("hidden");setTimeout(()=>$('nameInput').focus(),50)}
 function closeJoin(){$("joinModal").classList.add("hidden")}
 function startGame(name){
-  Object.assign(state,{id:uid(),name:name.trim(),score:0,mission:0,question:0,answered:0,startedAt:Date.now(),elapsed:0,finished:false,locked:false});
+  Object.assign(state,{id:uid(),name:name.trim(),score:0,mission:0,question:0,answered:0,startedAt:Date.now(),elapsed:0,finished:false,locked:false,missionStartScore:0});
   closeJoin();$("welcomeScreen").classList.add("hidden");$("finishScreen").classList.add("hidden");$("gameScreen").classList.remove("hidden");
   $("playerLabel").textContent=state.name;$("playerInitial").textContent=state.name.charAt(0).toUpperCase();
   clearInterval(state.timer);state.timer=setInterval(()=>{state.elapsed=Math.floor((Date.now()-state.startedAt)/1000);$("timeLabel").textContent=formatTime(state.elapsed);if(state.elapsed%3===0)syncSession()},1000);
@@ -139,8 +139,32 @@ function chooseAnswer(index){
 function isLastQuestion(){return state.question===missions[state.mission].questions.length-1}
 function advance(){
   if(!isLastQuestion()){state.question++;renderGame();return}
-  if(state.mission<missions.length-1){state.mission++;state.question=0;toast(`Mission ${state.mission} complete — next lab unlocked!`);renderGame();syncSession();return}
-  finishGame();
+  showMissionResult();
+}
+function showMissionResult(){
+  const missionIndex=state.mission;
+  const mission=missions[missionIndex];
+  const missionScore=Math.max(0,state.score-state.missionStartScore);
+  const possible=mission.questions.length*100;
+  const percent=Math.round(missionScore/possible*100);
+  document.querySelector(".mission-result-backdrop")?.remove();
+  const result=document.createElement("div");
+  result.className="mission-result-backdrop";
+  result.innerHTML=`<section class="mission-result" role="dialog" aria-modal="true" aria-labelledby="missionResultTitle">
+    <div class="mission-result-icon">🏆</div>
+    <p>MISSION ${missionIndex+1} COMPLETE</p>
+    <h2 id="missionResultTitle">${mission.title}</h2>
+    <div class="mission-result-score">${missionScore.toLocaleString()} <span>/ ${possible.toLocaleString()}</span></div>
+    <div class="mission-result-total">Total score: <b>${state.score.toLocaleString()}</b> · ${percent}% this mission</div>
+    <button class="primary big" id="continueMissionBtn">${missionIndex<missions.length-1?'Continue to next mission':'See final result'} →</button>
+  </section>`;
+  document.body.appendChild(result);
+  speak(`Mission complete. Your score is ${missionScore} out of ${possible}.`);
+  $("continueMissionBtn").addEventListener("click",()=>{
+    result.remove();
+    if(missionIndex<missions.length-1){state.mission=missionIndex+1;state.question=0;state.missionStartScore=state.score;renderGame();syncSession();return}
+    finishGame();
+  });
 }
 async function finishGame(){
   state.finished=true;clearInterval(state.timer);state.elapsed=Math.floor((Date.now()-state.startedAt)/1000);await syncSession("finished");$("gameScreen").classList.add("hidden");$("finishScreen").classList.remove("hidden");$("finishName").textContent=state.name;$("finishScore").textContent=state.score.toLocaleString();$("finishTime").textContent=formatTime(state.elapsed);speak("Challenge complete. Brilliant work!");

@@ -349,6 +349,12 @@
       .mission-btn{flex-basis:150px}
       .teacher-name{font-size:13px}
     }
+    .mission-result-backdrop{position:fixed;inset:0;z-index:1200;background:rgba(7,22,55,.78);backdrop-filter:blur(9px);display:grid;place-items:center;padding:18px}
+    .mission-result{width:min(500px,100%);max-height:calc(100dvh - 28px);overflow-y:auto;background:#fff;border-radius:28px;padding:32px;text-align:center;box-shadow:0 28px 85px rgba(0,0,0,.34);border:3px solid #dcecff}
+    .mission-result-icon{font-size:66px;line-height:1}.mission-result>p{font-size:12px;letter-spacing:1.5px;font-weight:900;color:var(--blue);margin:14px 0 7px}.mission-result h2{font-size:30px;color:var(--navy);margin:0}
+    .mission-result-score{font-size:62px;font-weight:950;color:var(--teal);line-height:1;margin:24px 0 10px}.mission-result-score span{font-size:21px;color:var(--muted)}
+    .mission-result-total{font-weight:800;color:var(--muted);margin-bottom:22px}.mission-result button{width:100%}
+    @media(max-width:560px){.mission-result{padding:25px 18px;border-radius:20px}.mission-result-score{font-size:48px}.mission-result h2{font-size:26px}}
   </style>
 </head>
 <body>
@@ -690,8 +696,9 @@ function loseLife(){
   save(); renderStats();
 }
 function completeMission(){
-  if(!state.completed[state.mission]){
-    state.completed[state.mission]=true;
+  const completedIndex=state.mission;
+  if(!state.completed[completedIndex]){
+    state.completed[completedIndex]=true;
     state.badges++;
     state.score+=30;
     upsertLeaderboard(false);
@@ -699,9 +706,30 @@ function completeMission(){
     speakTerm("Excellent. Mission complete");
     confetti();
   }
-  if(state.mission < missions.length-1) state.mission++;
   save();
-  render();
+  renderStats();
+  renderMissionList();
+  showMissionResult(completedIndex);
+}
+function showMissionResult(missionIndex){
+  document.querySelector(".mission-result-backdrop")?.remove();
+  const mission=missions[missionIndex];
+  const result=document.createElement("div");
+  result.className="mission-result-backdrop";
+  result.innerHTML=`<section class="mission-result" role="dialog" aria-modal="true" aria-labelledby="matterMissionResultTitle">
+    <div class="mission-result-icon">🏅</div>
+    <p>MISSION ${missionIndex+1} COMPLETE</p>
+    <h2 id="matterMissionResultTitle">${mission.title}</h2>
+    <div class="mission-result-score">${state.score} <span>points</span></div>
+    <div class="mission-result-total">Badge earned: +1 · Mission bonus: +30</div>
+    <button class="btn-primary" id="continueMatterMissionBtn">${missionIndex<missions.length-1?'Continue to next mission':'See lesson result'} 🚀</button>
+  </section>`;
+  document.body.appendChild(result);
+  document.getElementById("continueMatterMissionBtn").addEventListener("click",()=>{
+    result.remove();
+    if(missionIndex<missions.length-1) state.mission=missionIndex+1;
+    save();render();
+  });
 }
 function missionHeader(m, intro){
   return `<h2 class="mission-title">${m.icon} ${m.title}</h2><p class="mission-intro">${intro}</p>`;
