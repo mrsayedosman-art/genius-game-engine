@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7b80b">
+  <title>Genius Chemistry Games — Grade 7</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Genius in Science home">
+      <img src="genius-logo.png" alt="Genius in Science logo">
+      <span><b>Mr. Elsayed Osman</b><small>Grade 7 Chemistry Lab</small></span>
+    </a>
+    <nav>
+      <button class="ghost" id="soundBtn" type="button" aria-label="Toggle sound">🔊 Sound</button>
+      <a class="dashboard-link" href="/?view=teacher">▦ Live dashboard</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="studentView">
+      <div class="hero" id="welcomeScreen">
+        <div class="hero-copy">
+          <div class="eyebrow">8 challenges • one chemistry championship</div>
+          <h1>Enter the <span>Chemistry Arena</span></h1>
+          <p>Turn every worksheet into a fast science mission. Answer accurately, finish quickly, and climb the live class leaderboard.</p>
+          <div class="hero-actions">
+            <button class="primary big" id="openJoinBtn">Start the challenge <span>→</span></button>
+            <div class="micro-proof"><b>🏆 Ranking rule</b><span>Highest score, then shortest time</span></div>
+          </div>
+          <div class="topic-pills"><span>Matter</span><span>Elements</span><span>Atoms</span><span>Electron levels</span><span>Ions</span></div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="orbit orbit-one"><i>e−</i></div><div class="orbit orbit-two"><i>e−</i></div>
+          <div class="atom-core"><b>G7</b><span>CHEM</span></div>
+          <div class="float-card card-score"><small>LIVE SCORE</small><b>+100</b></div>
+          <div class="float-card card-rank"><small>YOUR RANK</small><b>#1</b></div>
+          <div class="formula f-one">H₂O</div><div class="formula f-two">NaCl</div><div class="formula f-three">CO₂</div>
+        </div>
+      </div>
+
+      <div id="gameScreen" class="game-shell hidden">
+        <section class="game-status">
+          <div class="player-chip"><span id="playerInitial">S</span><div><small>SCIENTIST</small><b id="playerLabel">Student</b></div></div>
+          <div class="metric"><small>SCORE</small><b id="scoreLabel">0</b></div>
+          <div class="metric"><small>TIME</small><b id="timeLabel">00:00</b></div>
+          <div class="metric"><small>PROGRESS</small><b id="progressLabel">0%</b></div>
+        </section>
+        <div class="progress-track"><i id="progressBar"></i></div>
+        <div class="mission-layout">
+          <aside id="missionRail" class="mission-rail"></aside>
+          <section class="challenge-card">
+            <div class="challenge-top"><div><div class="eyebrow" id="missionKicker">MISSION 1</div><h2 id="missionTitle">Matter Scanner</h2></div><div class="points-tag">+100 per correct answer</div></div>
+            <p class="mission-intro" id="missionIntro"></p>
+            <div id="questionArea"></div>
+            <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+          </section>
+        </div>
+      </div>
+
+      <section id="finishScreen" class="finish hidden">
+        <div class="trophy">🏆</div><div class="eyebrow">CHALLENGE COMPLETE</div>
+        <h2>Brilliant work, <span id="finishName"></span>!</h2>
+        <p>You completed the Grade 7 Chemistry Arena.</p>
+        <div class="finish-stats"><div><small>FINAL SCORE</small><b id="finishScore"></b></div><div><small>FINAL TIME</small><b id="finishTime"></b></div><div><small>CLASS RANK</small><b id="finishRank">—</b></div></div>
+        <button class="primary" id="playAgainBtn">Play again</button>
+      </section>
+    </section>
+
+    <section id="teacherView" class="teacher hidden">
+      <div class="teacher-head">
+        <div><div class="eyebrow"><i class="live-dot"></i> LIVE CLASSROOM</div><h1>Teacher Dashboard</h1><p>Students appear here as soon as they join. Results update automatically.</p></div>
+        <div class="teacher-actions"><a class="ghost link-btn" href="/">Open student game</a><button class="danger" id="resetBoardBtn">Reset round</button></div>
+      </div>
+      <div class="teacher-summary"><article><span>👥</span><div><small>STUDENTS</small><b id="studentCount">0</b></div></article><article><span>⚡</span><div><small>PLAYING NOW</small><b id="activeCount">0</b></div></article><article><span>🏁</span><div><small>FINISHED</small><b id="finishedCount">0</b></div></article><article><span>⭐</span><div><small>TOP SCORE</small><b id="topScore">0</b></div></article></div>
+      <div class="board-card">
+        <div class="board-title"><div><h2>Live leaderboard</h2><p>Sorted by score ↓ then time ↑</p></div><span id="connectionBadge" class="connected">● Connected</span></div>
+        <div class="table-wrap"><table><thead><tr><th>RANK</th><th>STUDENT</th><th>PROGRESS</th><th>SCORE</th><th>TIME</th><th>STATUS</th></tr></thead><tbody id="leaderboardBody"></tbody></table></div>
+        <div id="emptyBoard" class="empty-board"><span>🧪</span><h3>Waiting for scientists…</h3><p>Share the student game address and keep this dashboard open.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop hidden" id="joinModal">
+    <form class="join-modal" id="joinForm">
+      <button type="button" class="modal-close" id="closeJoinBtn" aria-label="Close">×</button>
+      <img src="genius-logo.png" alt="Genius in Science logo">
+      <div class="eyebrow">READY, SCIENTIST?</div><h2>Join the chemistry arena</h2><p>Enter your real name so your teacher can see your score live.</p>
+      <label for="nameInput">Student name</label><input id="nameInput" maxlength="40" autocomplete="name" placeholder="e.g. Omar Ahmed" required>
+      <button class="primary big" type="submit">Enter the lab <span>→</span></button>
+    </form>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>

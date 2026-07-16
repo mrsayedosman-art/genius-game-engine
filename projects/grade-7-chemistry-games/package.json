@@ -1,0 +1,9 @@
+{
+  "name": "genius-chemistry-games-g7",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Live Grade 7 chemistry games and teacher dashboard",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

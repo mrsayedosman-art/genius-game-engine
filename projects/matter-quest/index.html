@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Genius in Science - Grade 8 Games</title>
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:"Trebuchet MS", Arial, sans-serif;
+      color:#17213d;
+      background:linear-gradient(135deg,#eef8ff,#fff);
+      padding:24px;
+    }
+    .page{max-width:1100px;margin:0 auto}
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      background:#fff;
+      border:2px solid #d6e9ff;
+      border-radius:24px;
+      padding:16px;
+      box-shadow:0 12px 28px rgba(16,42,102,.12);
+    }
+    img{width:min(320px,70vw);border-radius:14px;display:block}
+    .teacher{font-weight:900;color:#102a66;text-align:center;margin-top:8px}
+    h1{font-size:clamp(32px,5vw,56px);margin:26px 0 8px;color:#102a66}
+    p{color:#596278;font-size:18px;font-weight:800}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px}
+    a.card{
+      display:block;
+      text-decoration:none;
+      color:#17213d;
+      background:#fff;
+      border:2px solid #d6e9ff;
+      border-radius:22px;
+      padding:20px;
+      box-shadow:0 8px 20px rgba(16,42,102,.1);
+      min-height:150px;
+    }
+    a.card:hover{border-color:#2388ff;transform:translateY(-2px)}
+    .tag{display:inline-block;padding:8px 12px;border-radius:999px;background:#eaf8ff;color:#07a79d;font-weight:900}
+    h2{margin:16px 0 8px;color:#102a66}
+    .ready{background:#eaffec;color:#16691d}
+    .soon{background:#fff9e8;color:#9b6500}
+    @media(max-width:760px){
+      body{padding:14px}
+      header{align-items:flex-start;flex-direction:column}
+      .grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div>
+        <img src="assets/genius-logo-cropped.png" alt="Genius in Science logo" />
+        <div class="teacher">Mr. Elsayed Osman</div>
+      </div>
+    </header>
+
+    <h1>Grade 8 Science Games</h1>
+    <p>Unit 1: Matter and Energy - upload-ready lesson files.</p>
+
+    <section class="grid">
+      <a class="card" href="lesson-01-states-of-matter.html">
+        <span class="tag ready">Playable</span>
+        <h2>Lesson 01: States of Matter</h2>
+        <p>Full interactive game with score, sound, dashboard, and leaderboard.</p>
+      </a>
+      <a class="card" href="lesson-02-changes-in-states-of-matter.html">
+        <span class="tag soon">Coming Soon</span>
+        <h2>Lesson 02: Changes in States of Matter</h2>
+        <p>Separate lesson page prepared for the next game.</p>
+      </a>
+      <a class="card" href="lesson-03-thermal-energy-and-temperature.html">
+        <span class="tag soon">Coming Soon</span>
+        <h2>Lesson 03: Thermal Energy and Temperature</h2>
+        <p>Separate lesson page prepared for the next game.</p>
+      </a>
+      <a class="card" href="lesson-04-methods-of-heat-transfer.html">
+        <span class="tag soon">Coming Soon</span>
+        <h2>Lesson 04: Methods of Heat Transfer</h2>
+        <p>Separate lesson page prepared for the next game.</p>
+      </a>
+    </section>
+  </main>
+</body>
+</html>

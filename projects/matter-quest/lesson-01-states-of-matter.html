@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-store" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Lesson 01 - States of Matter | Genius in Science</title>
+  <style>
+    :root{
+      --navy:#102a66;
+      --blue:#2388ff;
+      --cyan:#2fe0d0;
+      --teal:#07a79d;
+      --green:#56c85f;
+      --orange:#ff8a2a;
+      --pink:#ff4f93;
+      --purple:#7c55ff;
+      --yellow:#ffd447;
+      --red:#e83d4f;
+      --bg1:#eef8ff;
+      --bg2:#ffffff;
+      --card:#ffffff;
+      --ink:#17213d;
+      --muted:#596278;
+      --shadow:0 16px 40px rgba(16,42,102,.15);
+      --soft:0 8px 22px rgba(16,42,102,.12);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(47,224,208,.24), transparent 25%),
+        radial-gradient(circle at 90% 15%, rgba(124,85,255,.18), transparent 24%),
+        radial-gradient(circle at 70% 90%, rgba(255,138,42,.18), transparent 30%),
+        linear-gradient(135deg,var(--bg1),var(--bg2));
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    .stars{
+      position:fixed; inset:0; pointer-events:none; opacity:.55; z-index:0;
+      background-image:
+        radial-gradient(circle, rgba(35,136,255,.4) 1.5px, transparent 2px),
+        radial-gradient(circle, rgba(255,212,71,.7) 1.5px, transparent 2px),
+        radial-gradient(circle, rgba(47,224,208,.45) 1.3px, transparent 2px);
+      background-size: 90px 80px, 130px 110px, 170px 140px;
+      background-position: 0 0, 30px 50px, 80px 20px;
+    }
+    .app{
+      position:relative;
+      z-index:1;
+      max-width:1180px;
+      margin:0 auto;
+      padding:calc(18px + env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) calc(18px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+    }
+    .brand-bar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:14px;
+      background:rgba(255,255,255,.84);
+      border:2px solid rgba(16,42,102,.08);
+      border-radius:24px;
+      padding:12px 14px;
+      box-shadow:var(--soft);
+      backdrop-filter:blur(8px);
+    }
+    .brand-logo{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:6px;
+      min-width:0;
+      color:var(--navy);
+      font-weight:900;
+      letter-spacing:0;
+    }
+    .brand-image{
+      width:min(300px,60vw);
+      height:auto;
+      display:block;
+      border-radius:14px;
+      box-shadow:0 8px 18px rgba(16,42,102,.12);
+    }
+    .teacher-name{font-size:17px; line-height:1; color:var(--navy); font-weight:900}
+    .brand-actions{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end}
+    .hero{
+      background:linear-gradient(120deg, rgba(255,255,255,.95), rgba(238,248,255,.9));
+      border:2px solid rgba(35,136,255,.16);
+      border-radius:32px;
+      box-shadow:var(--shadow);
+      padding:28px;
+      display:grid;
+      grid-template-columns: 1.4fr .8fr;
+      gap:22px;
+      overflow:hidden;
+      position:relative;
+    }
+    .hero:before{
+      content:""; position:absolute; right:-90px; top:-120px; width:330px; height:330px;
+      background:conic-gradient(from 45deg,var(--cyan),var(--blue),var(--purple),var(--cyan));
+      border-radius:50%; opacity:.13;
+    }
+    h1{font-size: clamp(36px, 5vw, 72px); margin:0 0 8px; color:var(--navy); line-height:.95;}
+    .subtitle{font-size:20px; color:var(--teal); font-weight:800; margin-bottom:16px;}
+    .tagline{font-size:18px; color:var(--muted); line-height:1.45; max-width:680px}
+    .hero-badges{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
+    .badge{
+      background:#fff; border:2px solid rgba(16,42,102,.1); border-radius:999px;
+      padding:9px 14px; font-weight:800; box-shadow:var(--soft); display:inline-flex; align-items:center; gap:8px;
+    }
+    .player-panel{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:minmax(180px,320px) auto;
+      gap:10px;
+      align-items:center;
+    }
+    .player-input{
+      width:100%;
+      border:2px solid rgba(16,42,102,.14);
+      border-radius:16px;
+      padding:13px 14px;
+      font:900 16px inherit;
+      color:var(--navy);
+      background:#fff;
+      box-shadow:var(--soft);
+    }
+    .lab-card{
+      background:linear-gradient(180deg,#fff,#edf8ff); border:2px solid rgba(7,167,157,.18);
+      border-radius:26px; padding:18px; box-shadow:var(--soft);
+      display:flex; flex-direction:column; gap:12px; align-items:center; justify-content:center;
+    }
+    canvas{background:#fff; border-radius:20px; border:2px solid rgba(35,136,255,.15); width:100%; height:240px;}
+    .particle-tabs{display:flex; gap:7px; flex-wrap:wrap; justify-content:center}
+    button{
+      border:none; border-radius:16px; padding:12px 18px; font-weight:900; cursor:pointer;
+      transition:.18s transform,.18s box-shadow,.18s opacity; font-family:inherit;
+    }
+    button:hover{transform:translateY(-2px); box-shadow:var(--soft)}
+    button:active{transform:translateY(0)}
+    .btn-primary{background:linear-gradient(135deg,var(--blue),var(--teal)); color:#fff; font-size:18px;}
+    .btn-soft{background:#fff; color:var(--navy); border:2px solid rgba(16,42,102,.1)}
+    .btn-ghost{background:rgba(35,136,255,.1); color:var(--navy)}
+    .btn-tab.active{background:var(--navy); color:#fff}
+    .topbar{
+      margin:18px 0; display:grid; grid-template-columns:1fr auto; gap:14px; align-items:center;
+      background:rgba(255,255,255,.8); border:2px solid rgba(16,42,102,.08); border-radius:24px;
+      box-shadow:var(--soft); padding:14px;
+    }
+    .progress-wrap{height:18px; background:#ddeeff; border-radius:999px; overflow:hidden; border:2px solid #c7dfff}
+    .progress{height:100%; width:0%; background:linear-gradient(90deg,var(--green),var(--cyan),var(--blue)); border-radius:999px; transition:.5s width;}
+    .stats{display:flex; gap:8px; flex-wrap:wrap;}
+    .stat{padding:9px 12px; background:#fff; border-radius:16px; font-weight:900; border:2px solid rgba(16,42,102,.08)}
+    .leaderboard{
+      margin-top:18px;
+      background:#fff;
+      border:2px solid #d6e9ff;
+      border-radius:20px;
+      overflow:hidden;
+      text-align:left;
+    }
+    .leaderboard h3{margin:0; padding:14px 16px; color:var(--navy); background:#f2fbff}
+    .leaderboard table{width:100%; border-collapse:collapse; font-size:15px}
+    .leaderboard th,.leaderboard td{padding:10px 12px; border-top:1px solid #e0edff}
+    .leaderboard th{color:var(--muted); font-size:13px}
+    .leaderboard .current-player td{background:#fff9e8; font-weight:900}
+    .dashboard-backdrop{
+      position:fixed;
+      inset:0;
+      z-index:1000;
+      padding:calc(18px + env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) calc(18px + env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+      background:rgba(16,42,102,.38);
+      display:none;
+      align-items:center;
+      justify-content:center;
+    }
+    .dashboard-backdrop.show{display:flex}
+    .dashboard{
+      width:min(980px,100%);
+      max-height:min(860px,92vh);
+      overflow:auto;
+      background:#fff;
+      border-radius:26px;
+      border:2px solid rgba(16,42,102,.12);
+      box-shadow:0 24px 70px rgba(16,42,102,.28);
+      padding:20px;
+    }
+    .dashboard-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:16px;
+    }
+    .dashboard-head h2{margin:0; color:var(--navy); font-size:30px}
+    .dashboard-head p{margin:5px 0 0; color:var(--muted); font-weight:800}
+    .dashboard-logo{width:min(330px,76vw); height:auto; border-radius:14px; display:block; margin-bottom:10px}
+    .dashboard-grid{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:12px 0}
+    .dash-stat{background:#f8fcff; border:2px solid #d6e9ff; border-radius:18px; padding:14px}
+    .dash-stat b{display:block; font-size:28px; color:var(--teal); line-height:1}
+    .dash-stat span{display:block; margin-top:6px; color:var(--muted); font-weight:900; font-size:13px}
+    .teacher-signature{
+      margin-top:18px;
+      color:var(--navy);
+      font-weight:900;
+      text-align:center;
+    }
+    .missions{display:grid; grid-template-columns:260px 1fr; gap:18px; align-items:start}
+    .mission-list{
+      background:rgba(255,255,255,.88); border:2px solid rgba(16,42,102,.08);
+      border-radius:26px; box-shadow:var(--soft); padding:14px; position:sticky; top:12px;
+    }
+    .mission-pill{
+      width:100%; text-align:left; margin:6px 0; background:#fff; border:2px solid rgba(16,42,102,.08);
+      color:var(--navy); display:flex; align-items:center; gap:10px; justify-content:space-between;
+    }
+    .mission-pill.active{background:linear-gradient(135deg,var(--navy),#2147a0); color:#fff}
+    .mission-pill.locked{opacity:.45; cursor:not-allowed}
+    .mission-card{
+      background:rgba(255,255,255,.92); border:2px solid rgba(16,42,102,.08);
+      border-radius:30px; box-shadow:var(--shadow); padding:22px; min-height:560px;
+    }
+    .mission-title{font-size:34px; color:var(--navy); margin:0 0 8px;}
+    .mission-intro{font-size:17px; color:var(--muted); line-height:1.5; margin-bottom:14px}
+    .mini-note{background:#f2fbff; border-left:6px solid var(--teal); padding:12px 14px; border-radius:14px; margin:12px 0; font-weight:700}
+    .grid{display:grid; gap:14px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .choice,.cardlet{
+      background:#fff; border:2px solid rgba(16,42,102,.1); border-radius:20px;
+      padding:16px; box-shadow:0 7px 16px rgba(16,42,102,.08); min-height:74px;
+    }
+    .choice{cursor:pointer; font-weight:900; text-align:center; display:flex; align-items:center; justify-content:center; gap:8px;}
+    .choice:hover{border-color:var(--blue); transform:translateY(-2px)}
+    .choice.selected{background:#e8f6ff}
+    .choice.correct{border-color:var(--green); background:#efffed}
+    .choice.wrong{border-color:var(--red); background:#fff0f3}
+    .feedback{
+      margin-top:14px; min-height:48px; border-radius:18px; padding:14px; font-weight:900;
+      display:none;
+    }
+    .feedback.show{display:block}
+    .feedback.ok{background:#eaffec; color:#16691d; border:2px solid #a4e6aa}
+    .feedback.bad{background:#fff0f3; color:#9a1930; border:2px solid #ffb7c2}
+    .drop-area{
+      border:3px dashed #9fc7ff; background:#f8fcff; border-radius:22px; padding:12px; min-height:210px;
+      transition:.2s; display:flex; flex-direction:column; gap:10px;
+    }
+    .drop-area.over{background:#e9f8ff; border-color:var(--teal)}
+    .drop-title{font-size:22px; font-weight:900; display:flex; align-items:center; gap:8px}
+    .drag-bank{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0}
+    .drag-card{
+      background:linear-gradient(180deg,#fff,#f3faff); border:2px solid rgba(16,42,102,.12);
+      border-radius:16px; padding:10px 14px; font-weight:900; cursor:grab; box-shadow:var(--soft);
+      user-select:none;
+    }
+    .drag-card:active{cursor:grabbing}
+    .placed{cursor:default; opacity:.96}
+    .match-row{
+      display:grid; grid-template-columns:160px 1fr; gap:10px; align-items:center; margin:9px 0;
+    }
+    .select{
+      border:2px solid rgba(16,42,102,.15); border-radius:14px; padding:10px; font-weight:800; background:#fff;
+      font-family:inherit; width:100%;
+    }
+    .memory-table{width:100%; border-collapse:separate; border-spacing:0 8px; font-size:14px}
+    .memory-table th{background:var(--navy); color:#fff; padding:10px;}
+    .memory-table td{background:#fff; padding:10px; border-top:2px solid #e0edff; border-bottom:2px solid #e0edff}
+    .memory-table td:first-child{border-left:2px solid #e0edff; border-radius:14px 0 0 14px; font-weight:900}
+    .memory-table td:last-child{border-right:2px solid #e0edff; border-radius:0 14px 14px 0}
+    .footer-actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; margin-top:18px}
+    .certificate{
+      text-align:center; background:linear-gradient(135deg,#fff,#f2fbff); border:4px solid var(--yellow);
+      border-radius:30px; padding:28px; box-shadow:var(--shadow);
+    }
+    .next-lesson{
+      margin:18px auto;
+      max-width:760px;
+      text-align:left;
+      background:#f8fcff;
+      border:2px solid #d6e9ff;
+      border-radius:20px;
+      padding:16px;
+    }
+    .next-lesson h3{margin:0 0 8px; color:var(--navy); font-size:22px}
+    .next-lesson p{margin:6px 0; color:var(--muted); font-weight:800}
+    .big-score{font-size:64px; color:var(--teal); font-weight:900; line-height:1}
+    .hidden{display:none !important}
+    .arabic-hint{direction:rtl; text-align:right; font-family:Tahoma, Arial, sans-serif; background:#fff9e8; border-left:none; border-right:6px solid var(--yellow)}
+    .confetti{position:fixed; pointer-events:none; inset:0; z-index:999; overflow:hidden}
+    .confetti i{position:absolute; width:10px; height:16px; border-radius:2px; animation:fall 1.7s linear forwards}
+    @keyframes fall{to{transform:translateY(110vh) rotate(520deg); opacity:.2}}
+    @media (max-width:900px){
+      .hero,.missions{grid-template-columns:1fr}
+      .brand-bar,.dashboard-head{align-items:stretch; flex-direction:column}
+      .brand-actions{justify-content:flex-start}
+      .player-panel{grid-template-columns:1fr}
+      .mission-list{position:static}
+      .grid-3,.grid-2{grid-template-columns:1fr}
+      .topbar{grid-template-columns:1fr}
+      .dashboard-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      h1{font-size:42px}
+      .mission-title{font-size:28px}
+      canvas{height:200px}
+    }
+    @media (max-width:560px){
+      button{width:100%; min-height:46px}
+      .teacher-name{font-size:15px}
+      .brand-actions,.stats,.footer-actions{width:100%}
+      .stat{width:100%}
+      .hero{padding:20px; border-radius:24px}
+      .mission-card{padding:16px; border-radius:22px}
+      .dashboard{padding:14px; border-radius:20px}
+      .dashboard-grid{grid-template-columns:1fr}
+      .leaderboard{overflow-x:auto}
+      .leaderboard table{min-width:520px}
+    }
+  </style>
+</head>
+<body>
+<div class="stars"></div>
+<div class="confetti" id="confetti"></div>
+<div class="app">
+  <header class="brand-bar">
+    <div class="brand-logo" aria-label="Genius in Science">
+      <img class="brand-image" src="assets/genius-logo-cropped.png" alt="Genius in Science logo" />
+      <div class="teacher-name">Mr. Elsayed Osman</div>
+    </div>
+    <div class="brand-actions">
+      <button class="btn-soft" onclick="openTeacherDashboard()">Teacher Dashboard</button>
+    </div>
+  </header>
+  <section class="hero" id="hero">
+    <div>
+      <h1>Matter Quest</h1>
+      <div class="subtitle">A Grade 8 Science Game — Lesson 1: States of Matter</div>
+      <p class="tagline">
+        Help <b>Particle Bot</b> repair the Science Lab by completing missions about
+        matter, solids, liquids, gases, diffusion, Brownian motion, viscosity, compressibility, and plasma.
+      </p>
+      <div class="hero-badges">
+        <span class="badge">🧊 Solid</span>
+        <span class="badge">💧 Liquid</span>
+        <span class="badge">☁️ Gas</span>
+        <span class="badge">⚡ Plasma</span>
+        <span class="badge">🎯 Age 12+</span>
+      </div>
+      <div class="player-panel">
+        <input class="player-input" id="playerNameInput" maxlength="24" placeholder="Player name / اسم اللاعب" />
+        <button class="btn-soft" onclick="toggleSound()">🔊 Sound: <span id="soundState">On</span></button>
+      </div>
+      <div style="margin-top:22px; display:flex; gap:10px; flex-wrap:wrap">
+        <button class="btn-primary" onclick="startGame()">Start Mission 🚀</button>
+        <button class="btn-soft" onclick="toggleArabic()">Arabic Hints / إرشادات عربية</button>
+        <button class="btn-ghost" onclick="resetGame()">Reset Progress</button>
+      </div>
+    </div>
+    <div class="lab-card">
+      <b style="font-size:20px;color:var(--navy)">Particle Simulator</b>
+      <canvas id="particleCanvas" width="480" height="260" aria-label="Particle simulator"></canvas>
+      <div class="particle-tabs">
+        <button class="btn-soft btn-tab active" data-sim="solid">Solid</button>
+        <button class="btn-soft btn-tab" data-sim="liquid">Liquid</button>
+        <button class="btn-soft btn-tab" data-sim="gas">Gas</button>
+        <button class="btn-soft btn-tab" data-sim="brownian">Brownian</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="game" class="hidden">
+    <div class="topbar">
+      <div>
+        <div style="font-weight:900;color:var(--navy);margin-bottom:6px">Lab Repair Progress</div>
+        <div class="progress-wrap"><div class="progress" id="progress"></div></div>
+      </div>
+      <div class="stats">
+        <span class="stat">👤 <span id="playerNameStat">Player</span></span>
+        <span class="stat">⭐ Score: <span id="score">0</span></span>
+        <span class="stat">❤️ Lives: <span id="lives">5</span></span>
+        <span class="stat">🏅 Badges: <span id="badges">0</span>/8</span>
+        <span class="stat">🏆 Rank: <span id="rank">-</span></span>
+      </div>
+    </div>
+
+    <div class="missions">
+      <aside class="mission-list" id="missionList"></aside>
+      <main class="mission-card" id="missionCard"></main>
+    </div>
+  </section>
+</div>
+<div class="dashboard-backdrop" id="teacherDashboard" role="dialog" aria-modal="true" aria-label="Teacher dashboard">
+  <section class="dashboard">
+    <div class="dashboard-head">
+      <div>
+        <img class="dashboard-logo" src="assets/genius-logo-cropped.png" alt="Genius in Science logo" />
+        <h2>Teacher Dashboard</h2>
+        <p>Mr. Elsayed Osman</p>
+        <p>Local player scores for this device and browser.</p>
+      </div>
+      <div class="brand-actions">
+        <button class="btn-soft" onclick="resetLeaderboard()">Reset Scores</button>
+        <button class="btn-primary" onclick="closeTeacherDashboard()">Close</button>
+      </div>
+    </div>
+    <div id="dashboardContent"></div>
+    <div class="teacher-signature">Mr. Elsayed Osman</div>
+  </section>
+</div>
+
+<script>
+const state = {
+  started:false,
+  mission:0,
+  score:0,
+  lives:5,
+  badges:0,
+  arabic:false,
+  soundOn:true,
+  playerName:"Player",
+  completed: Array(8).fill(false),
+  answered:{}
+};
+
+let audioCtx=null;
+
+function initAudio(){
+  if(!audioCtx && (window.AudioContext || window.webkitAudioContext)){
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if(audioCtx && audioCtx.state==="suspended") audioCtx.resume();
+}
+function playTone(type="tap"){
+  if(!state.soundOn) return;
+  initAudio();
+  if(!audioCtx) return;
+  const now=audioCtx.currentTime;
+  const seq = {
+    tap:[[520,.04],[700,.05]],
+    ok:[[640,.07],[860,.08],[1040,.1]],
+    bad:[[210,.12],[160,.16]],
+    badge:[[520,.08],[780,.08],[1040,.14]]
+  }[type] || [[520,.06]];
+  seq.forEach(([freq,dur],i)=>{
+    const osc=audioCtx.createOscillator();
+    const gain=audioCtx.createGain();
+    osc.type=type==="bad" ? "sawtooth" : "sine";
+    osc.frequency.value=freq;
+    gain.gain.setValueAtTime(.0001, now+i*.09);
+    gain.gain.exponentialRampToValueAtTime(type==="bad"?.06:.09, now+i*.09+.012);
+    gain.gain.exponentialRampToValueAtTime(.0001, now+i*.09+dur);
+    osc.connect(gain).connect(audioCtx.destination);
+    osc.start(now+i*.09);
+    osc.stop(now+i*.09+dur+.02);
+  });
+}
+function speakTerm(text){
+  if(!state.soundOn || !("speechSynthesis" in window)) return;
+  const clean=String(text).replace(/[^\p{L}\p{N}\s-]/gu," ").replace(/\s+/g," ").trim();
+  if(!clean) return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(clean);
+  u.lang=/[\u0600-\u06FF]/.test(clean) ? "ar-EG" : "en-US";
+  u.rate=.88;
+  u.pitch=1.08;
+  window.speechSynthesis.speak(u);
+}
+function toggleSound(){
+  state.soundOn=!state.soundOn;
+  save();
+  updateSoundButton();
+  if(state.soundOn){ playTone("ok"); speakTerm("Sound on"); }
+}
+function updateSoundButton(){
+  const el=document.getElementById("soundState");
+  if(el) el.textContent=state.soundOn ? "On" : "Off";
+}
+function cleanPlayerName(name){
+  return String(name || "").trim().replace(/\s+/g," ").slice(0,24) || "Player";
+}
+function getLeaderboard(){
+  try{ return JSON.parse(localStorage.getItem("lesson01StatesMatterLeaderboard") || "[]"); }
+  catch(e){ return []; }
+}
+function saveLeaderboard(list){
+  localStorage.setItem("lesson01StatesMatterLeaderboard", JSON.stringify(list.slice(0,20)));
+}
+function upsertLeaderboard(final=false){
+  const name=cleanPlayerName(state.playerName);
+  const list=getLeaderboard();
+  const existing=list.find(row=>row.name.toLowerCase()===name.toLowerCase());
+  const score=Number(state.score) || 0;
+  if(existing){
+    existing.score=Math.max(existing.score, score);
+    existing.lastScore=score;
+    existing.completed=existing.completed || final;
+    existing.updatedAt=new Date().toISOString();
+  } else {
+    list.push({name, score, lastScore:score, completed:final, updatedAt:new Date().toISOString()});
+  }
+  list.sort((a,b)=>b.score-a.score || a.name.localeCompare(b.name));
+  saveLeaderboard(list);
+}
+function getPlayerRank(){
+  const name=cleanPlayerName(state.playerName).toLowerCase();
+  const list=getLeaderboard().sort((a,b)=>b.score-a.score || a.name.localeCompare(b.name));
+  const idx=list.findIndex(row=>row.name.toLowerCase()===name);
+  return idx>=0 ? idx+1 : "-";
+}
+function renderLeaderboard(){
+  const rows=getLeaderboard().sort((a,b)=>b.score-a.score || a.name.localeCompare(b.name)).slice(0,10);
+  if(!rows.length) return `<div class="leaderboard"><h3>🏆 Leaderboard</h3><table><tr><td>No scores yet.</td></tr></table></div>`;
+  const current=cleanPlayerName(state.playerName).toLowerCase();
+  return `<div class="leaderboard">
+    <h3>🏆 Leaderboard</h3>
+    <table>
+      <tr><th>Rank</th><th>Player</th><th>Best Score</th><th>Last Score</th></tr>
+      ${rows.map((row,idx)=>`<tr class="${row.name.toLowerCase()===current ? "current-player" : ""}">
+        <td>${idx+1}</td><td>${htmlEscape(row.name)}</td><td>${row.score}</td><td>${row.lastScore}</td>
+      </tr>`).join("")}
+    </table>
+  </div>`;
+}
+function getLeaderboardStats(){
+  const rows=getLeaderboard();
+  const total=rows.length;
+  const completed=rows.filter(row=>row.completed).length;
+  const topScore=rows.reduce((max,row)=>Math.max(max, Number(row.score)||0), 0);
+  const average=total ? Math.round(rows.reduce((sum,row)=>sum+(Number(row.score)||0),0)/total) : 0;
+  return {total, completed, topScore, average};
+}
+function renderTeacherDashboard(){
+  const box=document.getElementById("dashboardContent");
+  if(!box) return;
+  const stats=getLeaderboardStats();
+  box.innerHTML=`
+    <div class="dashboard-grid">
+      <div class="dash-stat"><b>${stats.total}</b><span>Players</span></div>
+      <div class="dash-stat"><b>${stats.topScore}</b><span>Top Score</span></div>
+      <div class="dash-stat"><b>${stats.average}</b><span>Average Score</span></div>
+      <div class="dash-stat"><b>${stats.completed}</b><span>Completed Lesson</span></div>
+    </div>
+    ${renderLeaderboard()}
+  `;
+}
+function openTeacherDashboard(){
+  renderTeacherDashboard();
+  const dash=document.getElementById("teacherDashboard");
+  if(dash) dash.classList.add("show");
+}
+function closeTeacherDashboard(){
+  const dash=document.getElementById("teacherDashboard");
+  if(dash) dash.classList.remove("show");
+}
+function resetLeaderboard(){
+  if(!confirm("Reset all local leaderboard scores?")) return;
+  localStorage.removeItem("lesson01StatesMatterLeaderboard");
+  renderTeacherDashboard();
+  renderStats();
+}
+
+const missions = [
+  {icon:"🧪", title:"Mission 1: Matter Scanner", short:"Matter"},
+  {icon:"🧊", title:"Mission 2: State Sorter", short:"States"},
+  {icon:"📊", title:"Mission 3: Property Lab", short:"Properties"},
+  {icon:"💧", title:"Mission 4: Viscosity Race", short:"Viscosity"},
+  {icon:"🌫️", title:"Mission 5: Diffusion Dash", short:"Diffusion"},
+  {icon:"🔬", title:"Mission 6: Particle Theory", short:"Particles"},
+  {icon:"🌀", title:"Mission 7: Brownian Mystery", short:"Brownian"},
+  {icon:"⚡", title:"Mission 8: Plasma Gate", short:"Plasma"}
+];
+
+function save(){ localStorage.setItem("lesson01StatesMatterState", JSON.stringify(state)); }
+function load(){
+  const saved = localStorage.getItem("lesson01StatesMatterState");
+  if(saved){
+    try{ Object.assign(state, JSON.parse(saved)); }catch(e){}
+  }
+}
+function startGame(){
+  initAudio();
+  const input=document.getElementById("playerNameInput");
+  state.playerName=cleanPlayerName(input ? input.value : state.playerName);
+  upsertLeaderboard(false);
+  state.started=true; save();
+  document.getElementById('hero').classList.add('hidden');
+  document.getElementById('game').classList.remove('hidden');
+  playTone("ok");
+  speakTerm(`Welcome ${state.playerName}. Start Mission`);
+  render();
+}
+function resetGame(){
+  localStorage.removeItem("lesson01StatesMatterState");
+  Object.assign(state,{started:false,mission:0,score:0,lives:5,badges:0,arabic:state.arabic,soundOn:state.soundOn,playerName:state.playerName,completed:Array(8).fill(false),answered:{}});
+  document.getElementById('hero').classList.remove('hidden');
+  document.getElementById('game').classList.add('hidden');
+  const input=document.getElementById("playerNameInput");
+  if(input) input.value=state.playerName;
+  renderStats();
+  updateSoundButton();
+}
+function toggleArabic(){
+  state.arabic=!state.arabic; save();
+  alert(state.arabic ? "Arabic hints are ON ✅" : "Arabic hints are OFF");
+  if(state.started) render();
+}
+function render(){
+  renderStats();
+  renderMissionList();
+  renderMission();
+}
+function renderStats(){
+  const playerEl=document.getElementById("playerNameStat");
+  if(playerEl) playerEl.textContent=cleanPlayerName(state.playerName);
+  document.getElementById("score").textContent=state.score;
+  document.getElementById("lives").textContent=state.lives;
+  document.getElementById("badges").textContent=state.badges;
+  const rankEl=document.getElementById("rank");
+  if(rankEl) rankEl.textContent=getPlayerRank();
+  const pct = (state.badges/8)*100;
+  document.getElementById("progress").style.width = pct+"%";
+}
+function renderMissionList(){
+  const box=document.getElementById("missionList");
+  box.innerHTML = `<div style="font-weight:900;color:var(--navy);font-size:20px;margin:6px 6px 12px">Missions</div>`;
+  missions.forEach((m,i)=>{
+    const locked = i > 0 && !state.completed[i-1];
+    const done = state.completed[i] ? "✅" : (locked ? "🔒" : "▶️");
+    const b=document.createElement("button");
+    b.className = "mission-pill" + (i===state.mission?" active":"") + (locked?" locked":"");
+    b.innerHTML = `<span>${m.icon} ${m.short}</span><span>${done}</span>`;
+    b.onclick = ()=>{ if(!locked){ state.mission=i; save(); render(); } };
+    box.appendChild(b);
+  });
+}
+
+function hint(text){
+  if(!state.arabic) return "";
+  return `<div class="mini-note arabic-hint">${text}</div>`;
+}
+function feed(id, ok, msg){
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.className = "feedback show " + (ok ? "ok":"bad");
+  el.textContent = msg;
+}
+function addScore(points=10){
+  state.score+=points;
+  upsertLeaderboard(false);
+  playTone("ok");
+  save(); renderStats();
+  if(document.getElementById("teacherDashboard")?.classList.contains("show")) renderTeacherDashboard();
+}
+function loseLife(){
+  state.lives=Math.max(0,state.lives-1);
+  playTone("bad");
+  save(); renderStats();
+}
+function completeMission(){
+  if(!state.completed[state.mission]){
+    state.completed[state.mission]=true;
+    state.badges++;
+    state.score+=30;
+    upsertLeaderboard(false);
+    playTone("badge");
+    speakTerm("Excellent. Mission complete");
+    confetti();
+  }
+  if(state.mission < missions.length-1) state.mission++;
+  save();
+  render();
+}
+function missionHeader(m, intro){
+  return `<h2 class="mission-title">${m.icon} ${m.title}</h2><p class="mission-intro">${intro}</p>`;
+}
+
+function renderMission(){
+  const card=document.getElementById("missionCard");
+  const i=state.mission;
+  if(state.badges>=8){ renderCertificate(); return; }
+  const fn=[mission1,mission2,mission3,mission4,mission5,mission6,mission7,mission8][i];
+  card.innerHTML = fn();
+  attachDragDrop();
+  attachAudioCues();
+}
+
+function mission1(){
+  return `
+  ${missionHeader(missions[0],"Scan each item and decide whether it is matter. Remember: matter has mass and occupies space.")}
+  ${hint("تذكر: المادة هي كل ما له كتلة ويشغل حيزًا من الفراغ. الصوت والضوء طاقة وليسا مادة.")}
+  <div class="mini-note">Key idea: <b>Matter is everything that has mass and occupies space.</b></div>
+  <div class="grid grid-3">
+    ${quizChoice("m1_q1","Water",true,"Water is matter because it has mass and occupies space.")}
+    ${quizChoice("m1_q2","Sound",false,"Sound is energy, not matter.")}
+    ${quizChoice("m1_q3","Air",true,"Air is matter because it has mass and occupies space.")}
+    ${quizChoice("m1_q4","Light",false,"Light is energy, not matter.")}
+    ${quizChoice("m1_q5","Iron nail",true,"Iron is matter because it has mass and occupies space.")}
+    ${quizChoice("m1_q6","Rock",true,"Rock is matter because it has mass and occupies space.")}
+  </div>
+  <div id="m1feed" class="feedback"></div>
+  <div class="footer-actions"><button class="btn-primary" onclick="checkMission1()">Check Scanner</button></div>`;
+}
+function quizChoice(id,label,correct,explain){
+  return `<div class="choice" id="${id}" data-correct="${correct}" data-explain="${htmlEscape(explain)}" onclick="toggleChoice('${id}')">${label}</div>`;
+}
+function toggleChoice(id){
+  const el=document.getElementById(id);
+  el.classList.toggle("selected");
+  playTone("tap");
+  speakTerm(el.textContent);
+}
+function checkMission1(){
+  let ok=true;
+  document.querySelectorAll("#missionCard .choice").forEach(el=>{
+    const selected=el.classList.contains("selected");
+    const correct=el.dataset.correct==="true";
+    el.classList.remove("correct","wrong");
+    if(correct && selected) el.classList.add("correct");
+    if((correct && !selected) || (!correct && selected)){
+      el.classList.add("wrong");
+      ok=false;
+    }
+  });
+  if(ok){ addScore(20); feed("m1feed",true,"Excellent! You identified matter correctly."); completeMission(); }
+  else { loseLife(); feed("m1feed",false,"Try again. Select only items that have mass and occupy space."); }
+}
+
+function mission2(){
+  const cards = ["ice cube","rock","iron","water","oil","milk","air","oxygen","water vapour"];
+  return `
+  ${missionHeader(missions[1],"Drag each example to the correct state of matter.")}
+  ${hint("اسحب الأمثلة إلى حالتها الصحيحة: solid / liquid / gas.")}
+  <div class="drag-bank">${cards.map(c=>`<span class="drag-card" draggable="true" data-answer="${ans(c)}">${c}</span>`).join("")}</div>
+  <div class="grid grid-3">
+    <div class="drop-area" data-zone="solid"><div class="drop-title">🧊 Solid</div></div>
+    <div class="drop-area" data-zone="liquid"><div class="drop-title">💧 Liquid</div></div>
+    <div class="drop-area" data-zone="gas"><div class="drop-title">☁️ Gas</div></div>
+  </div>
+  <div id="m2feed" class="feedback"></div>
+  <div class="footer-actions"><button class="btn-primary" onclick="checkDragMission('m2feed')">Check Sorting</button></div>`;
+}
+function ans(c){
+  if(["ice cube","rock","iron"].includes(c)) return "solid";
+  if(["water","oil","milk"].includes(c)) return "liquid";
+  return "gas";
+}
+function attachDragDrop(){
+  const cards=document.querySelectorAll(".drag-card");
+  const areas=document.querySelectorAll(".drop-area");
+  cards.forEach(card=>{
+    card.addEventListener("dragstart",e=>{ playTone("tap"); speakTerm(card.textContent); e.dataTransfer.setData("text/plain", card.textContent); card.classList.add("dragging"); });
+    card.addEventListener("dragend",()=>card.classList.remove("dragging"));
+  });
+  areas.forEach(area=>{
+    area.addEventListener("dragover",e=>{e.preventDefault(); area.classList.add("over");});
+    area.addEventListener("dragleave",()=>area.classList.remove("over"));
+    area.addEventListener("drop",e=>{
+      e.preventDefault(); area.classList.remove("over");
+      const text=e.dataTransfer.getData("text/plain");
+      const card=[...document.querySelectorAll(".drag-card")].find(c=>c.textContent===text && !c.classList.contains("placed"));
+      if(card){ playTone("tap"); speakTerm(`${card.textContent} ${area.dataset.zone}`); area.appendChild(card); card.classList.add("placed"); }
+    });
+  });
+}
+function attachAudioCues(){
+  document.querySelectorAll("#missionCard .select").forEach(sel=>{
+    sel.addEventListener("change",()=>{ playTone("tap"); speakTerm(sel.value || "Choose"); });
+  });
+}
+function checkDragMission(feedId){
+  let ok=true, placed=0;
+  document.querySelectorAll(".drop-area").forEach(area=>{
+    const zone=area.dataset.zone;
+    area.querySelectorAll(".drag-card").forEach(card=>{
+      placed++;
+      card.style.borderColor = card.dataset.answer===zone ? "var(--green)" : "var(--red)";
+      if(card.dataset.answer!==zone) ok=false;
+    });
+  });
+  if(placed < document.querySelectorAll(".drag-card").length) ok=false;
+  if(ok){ addScore(25); feed(feedId,true,"Great sorting! The state examples are correct."); completeMission(); }
+  else { loseLife(); feed(feedId,false,"Some examples are in the wrong state or not sorted yet. Try again."); }
+}
+
+function mission3(){
+  const rows = [
+    ["Solid","shape","definite shape"],
+    ["Solid","volume","definite volume"],
+    ["Liquid","shape","no definite shape"],
+    ["Liquid","volume","definite volume"],
+    ["Gas","shape","no definite shape"],
+    ["Gas","volume","no definite volume"],
+    ["Gas","compressibility","compressible"],
+    ["Liquid and gas","fluidity","fluids"]
+  ];
+  return `
+  ${missionHeader(missions[2],"Match each state/property with the correct textbook-aligned phrase.")}
+  ${hint("اختَر العبارة الصحيحة لكل حالة أو خاصية.")}
+  <div class="mini-note">Observable properties: shape, volume, fluidity and compressibility.</div>
+  ${rows.map((r,idx)=>`
+    <div class="match-row">
+      <b>${r[0]} — ${r[1]}</b>
+      <select class="select" data-answer="${r[2]}">
+        <option value="">Choose...</option>
+        <option>definite shape</option>
+        <option>no definite shape</option>
+        <option>definite volume</option>
+        <option>no definite volume</option>
+        <option>compressible</option>
+        <option>almost incompressible</option>
+        <option>fluids</option>
+      </select>
+    </div>`).join("")}
+  <div id="m3feed" class="feedback"></div>
+  <div class="footer-actions"><button class="btn-primary" onclick="checkSelects('m3feed')">Check Lab Table</button></div>`;
+}
+function checkSelects(feedId){
+  let ok=true;
+  document.querySelectorAll(".select").forEach(sel=>{
+    const c = sel.value===sel.dataset.answer;
+    sel.style.borderColor = c ? "var(--green)" : "var(--red)";
+    if(!c) ok=false;
+  });
+  if(ok){ addScore(25); feed(feedId,true,"Perfect! You connected the observable properties correctly."); completeMission(); }
+  else { loseLife(); feed(feedId,false,"Review shape, volume, fluidity and compressibility, then try again."); }
+}
+
+function mission4(){
+  return `
+  ${missionHeader(missions[3],"Run the fluidity race. Which flows faster?")}
+  ${hint("كلما زادت اللزوجة قلت السيولة. الماء أقل لزوجة من العسل لذلك ينساب أسرع.")}
+  <div class="grid grid-2">
+    <div class="cardlet" style="text-align:center">
+      <div style="font-size:70px">💧</div>
+      <h3>Water</h3>
+      <p>Low viscosity — high fluidity</p>
+    </div>
+    <div class="cardlet" style="text-align:center">
+      <div style="font-size:70px">🍯</div>
+      <h3>Honey</h3>
+      <p>High viscosity — low fluidity</p>
+    </div>
+  </div>
+  <div class="mini-note">Complete the rule: The higher the viscosity, the ______ the fluidity.</div>
+  <div class="grid grid-3">
+    ${simpleChoice("m4","higher",false)}
+    ${simpleChoice("m4","lower",true)}
+    ${simpleChoice("m4","same",false)}
+  </div>
+  <div id="m4feed" class="feedback"></div>`;
+}
+function simpleChoice(group,label,correct){
+  return `<div class="choice" onclick="checkSimple('${group}',${correct},this)">${label}</div>`;
+}
+
+function mission5(){
+  return `
+  ${missionHeader(missions[4],"Choose the fastest diffusion situation and complete the diffusion rule.")}
+  ${hint("الانتشار أسرع في الغازات، ويزداد بزيادة درجة الحرارة، وتزداد سرعة انتشار الغاز كلما قلت كتلته الجزيئية.")}
+  <div class="mini-note"><b>Diffusion:</b> movement of particles from a region of high concentration to a region of low concentration.</div>
+  <div class="grid grid-3">
+    ${scenario("In a solid sponge","Very slow","🐌",false)}
+    ${scenario("In cold water","Slow","🐢",false)}
+    ${scenario("Perfume in air","Very fast","🚀",true)}
+  </div>
+  <div class="match-row">
+    <b>Gas diffusion speed increases as molecular mass...</b>
+    <select class="select" id="m5sel" data-answer="decreases">
+      <option value="">Choose...</option>
+      <option>increases</option>
+      <option>decreases</option>
+      <option>stays constant</option>
+    </select>
+  </div>
+  <div id="m5feed" class="feedback"></div>
+  <div class="footer-actions"><button class="btn-primary" onclick="checkMission5()">Check Diffusion</button></div>`;
+}
+function scenario(title,speed,emoji,correct){
+  return `<div class="choice" data-correct="${correct}" onclick="selectOne(this)"><div><div style="font-size:46px">${emoji}</div><b>${title}</b><br><span>${speed}</span></div></div>`;
+}
+function selectOne(el){
+  playTone("tap");
+  speakTerm(el.textContent);
+  document.querySelectorAll("#missionCard .choice").forEach(c=>{c.classList.remove("selected"); c.style.background="#fff";});
+  el.classList.add("selected"); el.style.background="#e8f6ff";
+}
+function checkMission5(){
+  const chosen=document.querySelector("#missionCard .choice.selected");
+  const sel=document.getElementById("m5sel");
+  const ok = chosen && chosen.dataset.correct==="true" && sel.value==="decreases";
+  sel.style.borderColor = sel.value==="decreases" ? "var(--green)" : "var(--red)";
+  if(chosen){ chosen.classList.add(chosen.dataset.correct==="true" ? "correct":"wrong"); }
+  if(ok){ addScore(25); feed("m5feed",true,"Correct! Diffusion is fastest in gases, and lighter gas molecules diffuse faster."); completeMission(); }
+  else { loseLife(); feed("m5feed",false,"Check both answers: fastest medium and molecular mass rule."); }
+}
+
+function mission6(){
+  const statements = [
+    ["Matter is made of very small particles.", true],
+    ["Particles of the same substance are different.", false],
+    ["There are spaces between particles called interparticle spaces.", true],
+    ["Particles have kinetic energy because they are in continuous motion.", true],
+    ["Particles never move in gases.", false]
+  ];
+  return `
+  ${missionHeader(missions[5],"Decide whether each particle theory statement is true or false.")}
+  ${hint("نظرية الجسيمات: المادة مكونة من جسيمات صغيرة، بينها مسافات، ولها طاقة حركة لأنها في حركة مستمرة.")}
+  <div class="grid">
+  ${statements.map((s,idx)=>`
+    <div class="cardlet">
+      <b>${idx+1}. ${s[0]}</b>
+      <div style="margin-top:10px;display:flex;gap:8px">
+        <button class="btn-soft" onclick="markTF(${idx},true,this)">True</button>
+        <button class="btn-soft" onclick="markTF(${idx},false,this)">False</button>
+      </div>
+      <span class="hidden" id="ans${idx}">${s[1]}</span>
+    </div>
+  `).join("")}
+  </div>
+  <div id="m6feed" class="feedback"></div>
+  <div class="footer-actions"><button class="btn-primary" onclick="checkTF()">Check Particle Theory</button></div>`;
+}
+function markTF(idx,val,btn){
+  playTone("tap");
+  speakTerm(btn.textContent);
+  const parent=btn.parentElement;
+  parent.querySelectorAll("button").forEach(b=>b.dataset.chosen="");
+  btn.dataset.chosen=val;
+  parent.querySelectorAll("button").forEach(b=>b.style.background="#fff");
+  btn.style.background="#e8f6ff";
+}
+function checkTF(){
+  let ok=true;
+  document.querySelectorAll(".cardlet").forEach((card,idx)=>{
+    const ans = document.getElementById("ans"+idx);
+    if(!ans) return;
+    const correct=ans.textContent==="true";
+    const chosen = [...card.querySelectorAll("button")].find(b=>b.dataset.chosen);
+    const isOk = chosen && String(correct)===chosen.dataset.chosen;
+    card.style.borderColor = isOk ? "var(--green)" : "var(--red)";
+    if(!isOk) ok=false;
+  });
+  if(ok){ addScore(25); feed("m6feed",true,"Excellent! Particle theory unlocked."); completeMission(); }
+  else { loseLife(); feed("m6feed",false,"Review the particle theory statements and try again."); }
+}
+
+function mission7(){
+  return `
+  ${missionHeader(missions[6],"Solve the Brownian mystery. Why do pollen grains or dust particles move randomly?")}
+  ${hint("حركة براون تحدث بسبب التصادمات المستمرة بين جزيئات السائل أو الغاز والجسيمات الكبيرة نسبيًا مثل حبوب اللقاح أو الغبار.")}
+  <div class="mini-note">
+    <b>Brownian motion:</b> random motion of relatively large particles suspended in a fluid in all directions,
+    as a result of their continuous collisions with the molecules of the fluid.
+  </div>
+  <canvas id="brownianCanvas" width="700" height="260" aria-label="Brownian motion mini simulation"></canvas>
+  <div class="grid grid-2" style="margin-top:14px">
+    ${simpleChoice("m7","Continuous collisions with molecules of the fluid",true)}
+    ${simpleChoice("m7","Gravity pulls pollen grains downward only",false)}
+    ${simpleChoice("m7","Pollen grains become magnets",false)}
+    ${simpleChoice("m7","Particles stop moving in liquids",false)}
+  </div>
+  <div id="m7feed" class="feedback"></div>`;
+}
+
+function mission8(){
+  return `
+  ${missionHeader(missions[7],"Open the Plasma Gate by answering the final questions.")}
+  ${hint("البلازما حالة رابعة من المادة، تتكون عند تأين الغازات إلى جسيمات موجبة وسالبة الشحنة.")}
+  <div class="grid grid-2">
+    <div class="cardlet">
+      <h3>1. Plasma is...</h3>
+      <select class="select" data-answer="fourth state of matter">
+        <option value="">Choose...</option>
+        <option>fourth state of matter</option>
+        <option>a type of solid only</option>
+        <option>a liquid with high viscosity</option>
+      </select>
+    </div>
+    <div class="cardlet">
+      <h3>2. Plasma is formed when gases are...</h3>
+      <select class="select" data-answer="ionized">
+        <option value="">Choose...</option>
+        <option>frozen</option>
+        <option>ionized</option>
+        <option>compressed only</option>
+      </select>
+    </div>
+    <div class="cardlet">
+      <h3>3. Plasma contains...</h3>
+      <select class="select" data-answer="positively and negatively charged particles">
+        <option value="">Choose...</option>
+        <option>only neutral particles</option>
+        <option>positively and negatively charged particles</option>
+        <option>only pollen grains</option>
+      </select>
+    </div>
+    <div class="cardlet">
+      <h3>4. Example of plasma:</h3>
+      <select class="select" data-answer="lightning">
+        <option value="">Choose...</option>
+        <option>ice cube</option>
+        <option>honey</option>
+        <option>lightning</option>
+      </select>
+    </div>
+  </div>
+  <div id="m8feed" class="feedback"></div>
+  <div class="footer-actions"><button class="btn-primary" onclick="checkFinal()">Open Gate ⚡</button></div>`;
+}
+function checkFinal(){
+  let ok=true;
+  document.querySelectorAll(".select").forEach(sel=>{
+    const c = sel.value===sel.dataset.answer;
+    sel.style.borderColor = c ? "var(--green)" : "var(--red)";
+    if(!c) ok=false;
+  });
+  if(ok){ addScore(35); feed("m8feed",true,"Plasma Gate opened! You completed the lesson quest."); completeMission(); }
+  else { loseLife(); feed("m8feed",false,"Review plasma: fourth state, ionized gas, charged particles, examples."); }
+}
+function renderCertificate(){
+  upsertLeaderboard(true);
+  const card=document.getElementById("missionCard");
+  card.innerHTML = `
+  <div class="certificate">
+    <h2 style="font-size:40px;color:var(--navy)">🎉 Lab Repaired!</h2>
+    <p style="font-size:20px">You completed <b>Lesson 1: States of Matter</b>.</p>
+    <div class="big-score">${state.score}</div>
+    <p style="font-weight:900;color:var(--teal)">Final Score</p>
+    <table class="memory-table">
+      <tr><th>Solid</th><th>Liquid</th><th>Gas</th><th>Plasma</th></tr>
+      <tr>
+        <td>Definite shape and volume</td>
+        <td>No definite shape, definite volume</td>
+        <td>No definite shape or volume</td>
+        <td>Ionized gas with charged particles</td>
+      </tr>
+    </table>
+    <div class="next-lesson">
+      <h3>Next in Unit 1: Matter and Energy</h3>
+      <p>Lesson 2: Changes in States of Matter</p>
+      <p>The next game will continue from the same reference book.</p>
+    </div>
+    ${renderLeaderboard()}
+    <div class="brand-logo" style="margin:18px auto 0">
+      <img class="brand-image" src="assets/genius-logo-cropped.png" alt="Genius in Science logo" />
+      <div class="teacher-name">Mr. Elsayed Osman</div>
+    </div>
+    <button class="btn-soft" disabled title="This lesson will be built next">Next Lesson Coming Soon</button>
+    <button class="btn-primary" onclick="resetGame()">Play Again</button>
+  </div>`;
+  renderMissionList();
+}
+
+function checkSimple(group,correct,el){
+  playTone("tap");
+  speakTerm(el.textContent);
+  document.querySelectorAll("#missionCard .choice").forEach(c=>c.classList.remove("correct","wrong"));
+  if(correct){ el.classList.add("correct"); addScore(15); feed(group+"feed",true, group==="m7" ? "Correct! Continuous collisions with molecules of the fluid cause Brownian motion." : "Correct! The higher the viscosity, the lower the fluidity."); completeMission(); }
+  else { el.classList.add("wrong"); loseLife(); feed(group+"feed",false, group==="m7" ? "Try again. Think about collisions between molecules of the fluid and suspended particles." : "Not quite. Honey has higher viscosity and lower fluidity."); }
+}
+
+function htmlEscape(s){ return String(s).replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m])); }
+function confetti(){
+  const box=document.getElementById("confetti");
+  const colors=["#2388ff","#2fe0d0","#ffd447","#ff8a2a","#ff4f93","#7c55ff"];
+  for(let i=0;i<90;i++){
+    const f=document.createElement("i");
+    f.style.left=Math.random()*100+"vw";
+    f.style.top="-20px";
+    f.style.background=colors[Math.floor(Math.random()*colors.length)];
+    f.style.transform=`rotate(${Math.random()*360}deg)`;
+    f.style.animationDelay=(Math.random()*0.2)+"s";
+    box.appendChild(f);
+    setTimeout(()=>f.remove(),2100);
+  }
+}
+
+/* Particle simulator */
+let simMode="solid";
+const canvas=document.getElementById("particleCanvas");
+const ctx=canvas.getContext("2d");
+let particles=[];
+function setupParticles(mode){
+  particles=[];
+  if(mode==="solid"){
+    for(let r=0;r<5;r++) for(let c=0;c<8;c++){
+      particles.push({x:105+c*34,y:60+r*30,baseX:105+c*34,baseY:60+r*30,vx:0,vy:0});
+    }
+  } else if(mode==="liquid"){
+    for(let i=0;i<34;i++) particles.push({x:80+Math.random()*310,y:80+Math.random()*125,vx:(Math.random()-.5)*1.4,vy:(Math.random()-.5)*1.4});
+  } else if(mode==="gas"){
+    for(let i=0;i<26;i++) particles.push({x:30+Math.random()*420,y:30+Math.random()*200,vx:(Math.random()-.5)*4,vy:(Math.random()-.5)*4});
+  } else {
+    particles.push({x:240,y:130,vx:0,vy:0,big:true,path:[]});
+    for(let i=0;i<40;i++) particles.push({x:30+Math.random()*420,y:30+Math.random()*200,vx:(Math.random()-.5)*3,vy:(Math.random()-.5)*3});
+  }
+}
+function drawParticles(){
+  if(!canvas) return;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.strokeStyle="#d2e7ff"; ctx.lineWidth=3;
+  roundRect(ctx,12,12,canvas.width-24,canvas.height-24,20); ctx.stroke();
+  ctx.font="bold 20px Arial"; ctx.fillStyle="#102a66";
+  ctx.fillText(simMode==="brownian" ? "Brownian Motion" : simMode.toUpperCase()+" particles", 24, 38);
+
+  particles.forEach((p,idx)=>{
+    if(simMode==="solid"){
+      p.x=p.baseX+Math.sin(Date.now()/120+idx)*2.2;
+      p.y=p.baseY+Math.cos(Date.now()/130+idx)*2.2;
+    } else {
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<25||p.x>canvas.width-25) p.vx*=-1;
+      if(p.y<55||p.y>canvas.height-25) p.vy*=-1;
+      if(simMode==="brownian" && p.big){
+        const pushX=(Math.random()-.5)*2.1, pushY=(Math.random()-.5)*2.1;
+        p.vx=(p.vx+pushX)*.9; p.vy=(p.vy+pushY)*.9;
+        p.path.push([p.x,p.y]); if(p.path.length>50) p.path.shift();
+        ctx.strokeStyle="#ff4f93"; ctx.lineWidth=2; ctx.beginPath();
+        p.path.forEach((pt,i)=>{ if(i===0) ctx.moveTo(pt[0],pt[1]); else ctx.lineTo(pt[0],pt[1]);}); ctx.stroke();
+      }
+    }
+    ctx.beginPath();
+    ctx.fillStyle=p.big ? "#ffd447" : (simMode==="liquid" ? "#07a79d" : "#2388ff");
+    ctx.arc(p.x,p.y,p.big?16:9,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle="#102a66"; ctx.lineWidth=p.big?2:1; ctx.stroke();
+  });
+  if(simMode==="brownian"){
+    ctx.font="13px Arial"; ctx.fillStyle="#596278";
+    ctx.fillText("Large suspended particle is hit by moving fluid molecules.", 24, canvas.height-18);
+  }
+  requestAnimationFrame(drawParticles);
+}
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
+}
+document.querySelectorAll(".btn-tab").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".btn-tab").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    simMode=btn.dataset.sim; setupParticles(simMode);
+  });
+});
+setupParticles("solid"); drawParticles();
+
+function animateBrownianMission(){
+  const c=document.getElementById("brownianCanvas");
+  if(!c) return;
+  const g=c.getContext("2d");
+  let big={x:350,y:130,path:[]};
+  let small=Array.from({length:55},()=>({x:30+Math.random()*640,y:30+Math.random()*200,vx:(Math.random()-.5)*4,vy:(Math.random()-.5)*4}));
+  function step(){
+    if(!document.body.contains(c)) return;
+    g.clearRect(0,0,c.width,c.height);
+    g.fillStyle="#fff"; g.fillRect(0,0,c.width,c.height);
+    g.strokeStyle="#d2e7ff"; g.lineWidth=3; roundRect(g,10,10,c.width-20,c.height-20,20); g.stroke();
+    g.font="bold 18px Arial"; g.fillStyle="#102a66"; g.fillText("Magnified Brownian Motion", 22, 36);
+    small.forEach(s=>{
+      s.x+=s.vx; s.y+=s.vy;
+      if(s.x<20||s.x>c.width-20) s.vx*=-1;
+      if(s.y<50||s.y>c.height-20) s.vy*=-1;
+      const dx=big.x-s.x, dy=big.y-s.y, dist=Math.hypot(dx,dy);
+      if(dist<38){ big.x += dx/dist*1.7; big.y += dy/dist*1.7; s.vx*=-1; s.vy*=-1; }
+      g.beginPath(); g.fillStyle="#2388ff"; g.arc(s.x,s.y,5,0,Math.PI*2); g.fill();
+    });
+    big.x+=(Math.random()-.5)*3; big.y+=(Math.random()-.5)*3;
+    big.x=Math.max(40,Math.min(c.width-40,big.x)); big.y=Math.max(60,Math.min(c.height-40,big.y));
+    big.path.push([big.x,big.y]); if(big.path.length>80) big.path.shift();
+    g.strokeStyle="#ff4f93"; g.lineWidth=3; g.beginPath();
+    big.path.forEach((pt,i)=> i?g.lineTo(pt[0],pt[1]):g.moveTo(pt[0],pt[1])); g.stroke();
+    g.beginPath(); g.fillStyle="#ffd447"; g.arc(big.x,big.y,18,0,Math.PI*2); g.fill(); g.strokeStyle="#102a66"; g.stroke();
+    requestAnimationFrame(step);
+  }
+  step();
+}
+const oldRenderMission = renderMission;
+renderMission = function(){
+  oldRenderMission();
+  setTimeout(animateBrownianMission, 50);
+};
+load();
+state.playerName=cleanPlayerName(state.playerName);
+state.soundOn=state.soundOn!==false;
+const savedNameInput=document.getElementById("playerNameInput");
+if(savedNameInput) savedNameInput.value=state.playerName;
+updateSoundButton();
+if(state.started){ document.getElementById('hero').classList.add('hidden'); document.getElementById('game').classList.remove('hidden'); render(); }
+else { renderStats(); }
+</script>
+</body>
+</html>
