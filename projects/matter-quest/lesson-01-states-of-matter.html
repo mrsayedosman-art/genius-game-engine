@@ -321,6 +321,34 @@
       .leaderboard{overflow-x:auto}
       .leaderboard table{min-width:520px}
     }
+    @media (max-width:560px){
+      html{-webkit-text-size-adjust:100%}
+      body{padding-bottom:env(safe-area-inset-bottom)}
+      .app{padding-left:max(10px,env(safe-area-inset-left));padding-right:max(10px,env(safe-area-inset-right))}
+      .brand-image{width:min(250px,88vw)}
+      h1{font-size:clamp(32px,10vw,42px);line-height:1.05;overflow-wrap:anywhere}
+      .tagline{font-size:16px}
+      .hero{padding:18px 14px}
+      .player-panel{padding:14px}
+      input,select,button{font-size:16px;min-height:48px;touch-action:manipulation}
+      .missions{gap:12px}
+      .mission-list{display:flex;overflow-x:auto;gap:8px;padding-bottom:6px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+      .mission-btn{flex:0 0 170px;margin:0;scroll-snap-align:start}
+      .mission-card{min-width:0;padding:14px}
+      .mission-title{font-size:clamp(24px,8vw,30px);overflow-wrap:anywhere}
+      .option{padding:13px;overflow-wrap:anywhere}
+      .footer-actions{display:grid;gap:8px}
+      canvas{height:170px}
+      .dashboard-head{gap:12px}
+      .dashboard-logo{width:min(260px,88vw)}
+      .modal-card{max-height:calc(100dvh - 20px);overflow-y:auto}
+    }
+    @media (max-width:350px){
+      .app{padding-left:8px;padding-right:8px}
+      .hero,.mission-card,.dashboard{border-radius:16px}
+      .mission-btn{flex-basis:150px}
+      .teacher-name{font-size:13px}
+    }
   </style>
 </head>
 <body>

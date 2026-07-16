@@ -1561,3 +1561,34 @@ button {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 560px) {
+  html { -webkit-text-size-adjust: 100%; }
+  body { overflow-x: hidden; padding-bottom: env(safe-area-inset-bottom); }
+  button, input, .tab, .lesson-link, .dashboard-link { min-height: 44px; touch-action: manipulation; }
+  .app { width: 100%; min-width: 0; }
+  .sidebar, .stage { min-width: 0; padding-left: max(.85rem, env(safe-area-inset-left)); padding-right: max(.85rem, env(safe-area-inset-right)); }
+  .brand h1 { font-size: clamp(1.5rem, 8vw, 2rem); overflow-wrap: anywhere; }
+  .lesson-list { display: flex; overflow-x: auto; gap: .55rem; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; }
+  .lesson-link { flex: 0 0 8.5rem; scroll-snap-align: start; }
+  .topbar { gap: .75rem; }
+  .topbar h2 { font-size: clamp(1.35rem, 7vw, 2rem); overflow-wrap: anywhere; }
+  .score-strip { display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: .5rem; }
+  .score-card, .rank-card { width: 100%; min-width: 0; }
+  .tabs { gap: .4rem; }
+  .tab { padding: .65rem .35rem; font-size: .78rem; overflow-wrap: anywhere; }
+  .mission { padding-left: 0; padding-right: 0; }
+  .mission-card, .game-card { min-width: 0; padding: 1rem; border-radius: 1rem; }
+  .mission-card h3, .game-card h3 { overflow-wrap: anywhere; }
+  .choice-grid, .sort-grid, .word-grid, .sense-options, .movement-options { grid-template-columns: 1fr; }
+  img, svg, canvas { max-width: 100%; height: auto; }
+  .modal-card, .dashboard-modal { width: calc(100% - 1rem); max-height: calc(100dvh - 1rem); overflow-y: auto; }
+  .leaderboard { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+
+@media (max-width: 360px) {
+  .stage, .sidebar { padding: .65rem; }
+  .lesson-link { flex-basis: 7.5rem; }
+  .tab { font-size: .72rem; }
+  .mission-card, .game-card { padding: .8rem; }
+}
