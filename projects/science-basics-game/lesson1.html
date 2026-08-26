@@ -1,129 +1,14 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Lesson 1 - Living and Non-Living</title>
-    <link rel="stylesheet" href="styles.css?v=20260717-score-results">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0d55a5" />
+    <title>Lesson 1 Part 1 | Genius in Science</title>
+    <script type="module" crossorigin src="./lesson1-assets/lesson1-s2Uhjr4c.js"></script>
+    <link rel="stylesheet" crossorigin href="./lesson1-assets/lesson1-S6FC87xF.css">
   </head>
-  <body data-start-lesson="lesson1" data-standalone-lesson="true">
-    <main class="app">
-      <aside class="sidebar" aria-label="Lessons">
-        <div class="brand">
-          <span class="brand-mark">SB</span>
-          <div>
-            <h1>Science Basics</h1>
-            <p>Game Lessons</p>
-          </div>
-        </div>
-
-        <section class="book-meta" aria-label="Book information">
-          <p class="book-label">Book</p>
-          <h2>Science Basics for Kids 1</h2>
-          <p>By Mr. Elsayed Osman</p>
-        </section>
-
-        <section class="player-box" aria-label="Player profile">
-          <p class="book-label">Player</p>
-          <strong id="active-player-name">Guest Player</strong>
-          <label for="player-name-input">Student name</label>
-          <div class="player-entry">
-            <input id="player-name-input" type="text" autocomplete="name" placeholder="Type name">
-            <button class="icon-action" type="button" id="save-player">Save</button>
-          </div>
-          <button class="dashboard-link" type="button" id="open-dashboard">Dashboard</button>
-        </section>
-
-        <nav class="lesson-list" aria-label="Chapter 1 lessons">
-          <button class="lesson active" type="button" data-lesson="lesson1">
-            <span>1</span>
-            <strong>Living and Non-Living</strong>
-          </button>
-          <button class="lesson" type="button" data-lesson="lesson2">
-            <span>2</span>
-            <strong>How Can We Feel?</strong>
-          </button>
-          <button class="lesson" type="button" data-lesson="lesson3">
-            <span>3</span>
-            <strong>Movement</strong>
-          </button>
-          <button class="lesson" type="button" data-lesson="lesson4">
-            <span>4</span>
-            <strong>Life Cycle</strong>
-          </button>
-          <button class="lesson" type="button" data-lesson="lesson5">
-            <span>5</span>
-            <strong>Nutrition</strong>
-          </button>
-        </nav>
-      </aside>
-
-      <section class="stage" aria-live="polite">
-        <header class="topbar">
-          <div>
-            <p class="chapter">Chapter 1</p>
-            <h2 id="lesson-title">Living Organisms and Non-Living Things</h2>
-          </div>
-          <div class="score-strip" aria-label="Score and rank">
-            <div class="score-card">
-              <span>Score</span>
-              <strong id="score">0</strong>
-            </div>
-            <button class="rank-card" type="button" id="rank-card">
-              <span>Rank</span>
-              <strong id="current-rank">#1</strong>
-            </button>
-          </div>
-        </header>
-
-        <section class="hero">
-          <div class="island">
-            <span class="sun"></span>
-            <span class="cloud cloud-a"></span>
-            <span class="cloud cloud-b"></span>
-            <span class="tree">🌴</span>
-            <span class="wave wave-a"></span>
-            <span class="wave wave-b"></span>
-          </div>
-          <div class="mission">
-            <p class="badge" id="lesson-badge">Lesson 1</p>
-            <h3 id="game-title">Creature Sort</h3>
-            <p id="game-prompt">Put each thing in the right home.</p>
-          </div>
-        </section>
-
-        <section class="tabs" aria-label="Game modes">
-          <button class="tab active" type="button" data-game="a">Sort</button>
-          <button class="tab" type="button" data-game="b">Traits</button>
-          <button class="tab" type="button" data-game="c">Words</button>
-          <button class="tab" type="button" data-game="d" hidden>Sentences</button>
-          <button class="tab" type="button" data-game="e" hidden>Extra</button>
-          <button class="tab" type="button" data-game="f" hidden>Extra</button>
-          <button class="tab" type="button" data-game="g" hidden>Extra</button>
-          <button class="tab" type="button" data-game="h" hidden>Extra</button>
-          <button class="tab" type="button" data-game="i" hidden>Extra</button>
-        </section>
-
-        <section class="game-panel" id="game-panel"></section>
-      </section>
-    </main>
-
-    <section class="dashboard-modal" id="dashboard-modal" hidden aria-label="Teacher dashboard">
-      <div class="dashboard-panel">
-        <header class="dashboard-head">
-          <div>
-            <p class="chapter">Teacher Dashboard</p>
-            <h2>Players Ranking</h2>
-          </div>
-          <button class="close-dashboard" type="button" id="close-dashboard" aria-label="Close dashboard">×</button>
-        </header>
-        <div class="dashboard-stats" id="dashboard-stats"></div>
-        <div class="leaderboard-list" id="leaderboard-list"></div>
-      </div>
-    </section>
-
-    <script src="app.js?v=20260717-score-results"></script>
+  <body>
+    <div id="root"></div>
   </body>
 </html>
-
-
