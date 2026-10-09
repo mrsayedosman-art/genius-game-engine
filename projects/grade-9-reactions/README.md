@@ -21,3 +21,12 @@ All interactions use buttons suitable for touch, mouse and keyboard.
 Scores award 3 points on the first correct attempt, 2 on the second and 1
 thereafter. Hints are free. The best score is saved locally on the device
 when browser storage is available; this is not a teacher dashboard.
+
+Sound is on by default and can be muted in the header. Web Audio generates
+tap, correct, retry and celebration effects after user interaction. Supported
+browsers announce the final score through their available English speech voice;
+the result also includes a button to repeat the announcement. Sound preference
+is saved locally. Audio support is optional and never blocks play.
+
+Correct answers advance automatically after three seconds, including the final
+result. A pause/resume control lets students take longer to read explanations.

@@ -6,6 +6,13 @@
   let saved = {};
   try { const value = JSON.parse(localStorage.getItem(storageKey) || '{}'); if(value && typeof value === 'object' && !Array.isArray(value)) saved = value; } catch {}
   let game, round = 0, score = 0, attempts = 0, selected = [], solved = false, reviewing = [];
+  let transitionTimer, countdownTimer;
+  const audio = window.ReactionAudio;
+  function clearTransition() {
+    clearTimeout(transitionTimer);
+    clearInterval(countdownTimer);
+  }
+  window.addEventListener('pagehide', clearTransition);
   const escape = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const button = (label, attrs = '', cls = '') => `<button class="${cls}" ${attrs}>${label}</button>`;
   const shuffled = values => {
@@ -14,6 +21,8 @@
     return result;
   };
   function navigate() {
+    clearTransition();
+    audio?.stop();
     const id = new URLSearchParams(location.search).get('game');
     game = games.find(g => g.id === id);
     round = score = attempts = 0; selected = []; solved = false; reviewing = [];
@@ -24,6 +33,7 @@
     app.innerHTML = `<span class="eyebrow">GRADE 9 · LESSON 1</span><h1>Reaction Lab</h1><p class="intro">Choose one short mission. Build equations, predict observations, and follow the electrons.</p><p class="note">Each game has 4 challenges and takes about 3–5 minutes. Use taps, clicks or keyboard buttons. These are virtual activities.</p><section class="grid" aria-label="Reaction games">${games.map(g => `<article class="card"><span class="eyebrow">${escape(g.group)}</span><h2>${escape(g.title)}</h2><p>${escape(g.description)}</p><p class="meta">4 challenges · 12 points</p>${Number.isFinite(saved[g.id]) ? `<p class="badge">Best score: ${saved[g.id]}/12</p>` : ''}<a class="button" href="?game=${g.id}">Play mission</a></article>`).join('')}</section>`;
   }
   function renderTask() {
+    clearTransition();
     selected = []; solved = false; attempts = 0;
     const task = game.tasks[round];
     document.title = `${game.title} · Reaction Lab`;
@@ -42,6 +52,7 @@
       if(value !== '+' && selected.includes(value)) return;
       if(selected.length >= task.answer.length) return;
       selected.push(value); renderSlots();
+      audio?.effect('tap');
     }));
     document.getElementById('check')?.addEventListener('click', () => check(JSON.stringify(selected) === JSON.stringify(task.answer)));
     document.getElementById('clear')?.addEventListener('click', () => {if(!solved) {selected=[];renderSlots();}});
@@ -64,26 +75,60 @@
     attempts++;
     const feedback = document.getElementById('feedback');
     if(!correct) {
+      audio?.effect('retry');
       if(!reviewing.includes(round)) reviewing.push(round);
       feedback.innerHTML = `<div class="feedback retry"><strong>Try again</strong><p>${escape(task.hint)}</p><p class="meta">You can change your answer and check again.</p></div>`;
       return;
     }
     solved = true;
+    audio?.effect('correct');
     const earned = Math.max(1, 4-attempts); score += earned;
     document.getElementById('score').textContent = `${score}/12 points`;
     feedback.innerHTML = `<div class="feedback success"><strong>Correct · +${earned} points</strong><p>${escape(task.explain)}</p></div>`;
     app.querySelectorAll('button').forEach(b => {b.disabled=true;});
-    document.getElementById('next-area').innerHTML = `<div class="actions">${button(round===game.tasks.length-1 ? 'See result' : 'Next challenge','id="next"')}</div>`;
-    document.getElementById('next').addEventListener('click', () => {round++;if(round===game.tasks.length) finish();else renderTask();});
-    document.getElementById('next').focus();
+    document.querySelector('.progress').value = round + 1;
+    document.getElementById('next-area').innerHTML = `<div class="auto-next"><span id="countdown">${round===game.tasks.length-1 ? 'Your result' : 'Next challenge'} in 3 seconds</span>${button('Pause auto-next','id="pause-next"','secondary')}</div>`;
+    let paused = false;
+    const pause = document.getElementById('pause-next');
+    function schedule() {
+      clearTransition();
+      let seconds = 3;
+      const label = round === game.tasks.length-1 ? 'Your result' : 'Next challenge';
+      document.getElementById('countdown').textContent = `${label} in ${seconds} seconds`;
+      countdownTimer = setInterval(() => {
+        seconds--;
+        document.getElementById('countdown').textContent = `${label} in ${seconds} ${seconds===1?'second':'seconds'}`;
+      }, 1000);
+      transitionTimer = setTimeout(() => {
+        clearTransition();
+        round++;
+        if(round===game.tasks.length) finish(); else renderTask();
+      }, 3000);
+    }
+    pause.addEventListener('click', () => {
+      paused = !paused;
+      if(paused) {
+        clearTransition();
+        document.getElementById('countdown').textContent = 'Paused · take your time to read';
+        pause.textContent = 'Resume auto-next';
+      } else { pause.textContent = 'Pause auto-next'; schedule(); }
+    });
+    feedback.tabIndex = -1;
+    feedback.focus({preventScroll:true});
+    feedback.scrollIntoView({block:'nearest',behavior:'auto'});
+    schedule();
   }
   function finish() {
+    clearTransition();
     const previous = Number.isFinite(saved[game.id]) ? saved[game.id] : 0;
     saved[game.id] = Math.max(previous,score);
     let persisted = true;
     try {localStorage.setItem(storageKey,JSON.stringify(saved));} catch {persisted=false;}
-    app.innerHTML = `<div class="game result"><span class="eyebrow">MISSION COMPLETE</span><h1>${escape(game.title)}</h1><p class="score">${score}/12</p><p>${score===12 ? 'Every challenge solved on the first try.' : 'Mission complete. Replay to practise and improve your score.'}</p><p class="meta">Best score: ${saved[game.id]}/12${persisted ? ' · Saved on this device' : ' · Saving is unavailable in this browser'}</p>${reviewing.length ? `<h2>Practise these ideas</h2><ul>${reviewing.map(i=>`<li>${escape(game.tasks[i].explain)}</li>`).join('')}</ul>` : ''}<div class="actions">${button('Replay mission','id="replay"')}<a class="button secondary" href="index.html">Choose another mission</a><a class="button secondary" href="../../index.html">Games hub</a></div></div>`;
+    app.innerHTML = `<div class="game result"><span class="eyebrow">MISSION COMPLETE</span><h1 id="result-title" tabindex="-1">${escape(game.title)}</h1><div class="score-stage"><span class="result-label">${score===12 ? 'PERFECT SCORE' : score>=9 ? 'GREAT WORK, SCIENTIST' : 'MISSION ACCOMPLISHED'}</span><p class="score" aria-label="Your score is ${score} out of 12">${score}/12</p><p>${score===12 ? 'Every challenge solved on the first try.' : 'Mission complete. Replay to practise and improve your score.'}</p>${button('Hear my score','id="hear-score"','secondary')}</div><p class="meta">Best score: ${saved[game.id]}/12${persisted ? ' · Saved on this device' : ' · Saving is unavailable in this browser'}</p>${reviewing.length ? `<h2>Practise these ideas</h2><ul>${reviewing.map(i=>`<li>${escape(game.tasks[i].explain)}</li>`).join('')}</ul>` : ''}<div class="actions">${button('Replay mission','id="replay"')}<a class="button secondary" href="index.html">Choose another mission</a><a class="button secondary" href="../../index.html">Games hub</a></div></div>`;
     document.getElementById('replay').addEventListener('click',navigate);
+    document.getElementById('hear-score').addEventListener('click', () => audio?.celebrate(score));
+    document.getElementById('result-title').focus();
+    audio?.celebrate(score);
   }
   navigate();
 })();
