@@ -30,16 +30,25 @@
     clearTransition();
     audio?.stop();
     document.querySelector('.teacher-brand small').textContent = `Grade 9 · ${lessonTitle}`;
+    if(lesson2) document.querySelector('.teacher-brand').href = homeHref;
     document.querySelector('footer').innerHTML = `<strong>Genius in Science · Mr. Elsayed Osman</strong><br>Lesson ${lesson2 ? '2 · Combustion Reactions and Environmental Pollution' : '1 · Types of Chemical Reactions'} · Virtual activities`;
     const id = new URLSearchParams(location.search).get('game');
     game = games.find(g => g.id === id);
     round = score = attempts = 0; selected = []; solved = false; reviewing = [];
     if(game) renderTask(); else renderHome();
   }
+  function startMission(id) {
+    history.pushState({}, '', missionHref(id));
+    navigate();
+    window.scrollTo(0, 0);
+    document.getElementById('prompt')?.focus({preventScroll:true});
+  }
+  window.addEventListener('popstate', navigate);
   function renderHome() {
     if(lesson2) {
       document.title = `${lessonTitle} · Grade 9`;
-      app.innerHTML = `<nav class="lesson-tabs" aria-label="Grade 9 lessons"><a href="index.html">Lesson 1 · Reactions</a><a href="?lesson=2" aria-current="page">Lesson 2 · Combustion</a></nav><span class="eyebrow">GRADE 9 · LESSON 2</span><h1>${lessonTitle}</h1><p class="intro">Choose a topic, then play one of its two short missions. Explore pictures, match clues, build equations and control a virtual burner.</p><p class="note">4 challenges per mission · 12 points · sound and automatic progression. All experiments are virtual.</p><div class="topics">${window.COMBUSTION_TOPICS.map(t=>`<section class="topic"><div class="topic-image">${picture(t.scene)}</div><div class="topic-content"><h2>${escape(t.title)}</h2><p>${escape(t.description)}</p><div class="topic-games">${t.games.map(g=>`<article class="mini-game"><h3>${escape(g.title)}</h3><p>${escape(g.description)}</p>${Number.isFinite(saved[g.id])?`<p class="badge">Best score: ${saved[g.id]}/12</p>`:''}<a class="button" href="${missionHref(g.id)}">Play mission</a></article>`).join('')}</div></div></section>`).join('')}</div>`;
+      app.innerHTML = `<nav class="lesson-tabs" aria-label="Grade 9 lessons"><a href="index.html">Lesson 1 · Reactions</a><a href="?lesson=2" aria-current="page">Lesson 2 · Combustion</a></nav><span class="eyebrow">GRADE 9 · LESSON 2</span><h1>${lessonTitle}</h1><p class="intro">Follow the lesson in order, one short mission at a time. After each score, press Next section to continue.</p><div class="actions">${button('Start lesson','id="start-lesson"')}</div><p class="note">12 missions · 4 challenges each · 6 topics. Challenges advance automatically; each mission ends with your spoken score. All experiments are virtual.</p><div class="topics">${window.COMBUSTION_TOPICS.map(t=>`<section class="topic"><div class="topic-image">${picture(t.scene)}</div><div class="topic-content"><h2>${escape(t.title)}</h2><p>${escape(t.description)}</p><div class="topic-games">${t.games.map(g=>`<article class="mini-game"><span class="eyebrow">Mission ${games.findIndex(x=>x.id===g.id)+1} of ${games.length}</span><h3>${escape(g.title)}</h3><p>${escape(g.description)}</p></article>`).join('')}</div></div></section>`).join('')}</div>`;
+      document.getElementById('start-lesson').addEventListener('click',()=>startMission(games[0].id));
       return;
     }
     document.title = 'Reaction Lab · Grade 9';
@@ -66,6 +75,10 @@
     }
     app.innerHTML = `<div class="game"><a href="index.html">All G9 missions</a><div class="topline"><span class="eyebrow">${escape(game.group)}</span><span id="score">${score}/12 points</span></div><h1>${escape(game.title)}</h1><div class="topline"><span>Challenge ${round+1} of ${game.tasks.length}</span><span class="meta">${escape(game.pattern)}</span></div><progress class="progress" max="${game.tasks.length}" value="${round}" aria-label="Mission progress"></progress><section class="panel"><h2 id="prompt" tabindex="-1">${escape(task.prompt)}</h2>${task.equation ? `<div class="equation">${escape(task.equation)}</div>` : ''}${activity}<div class="actions">${button('Show hint','id="hint"','secondary')}</div><div id="feedback" role="status" aria-live="polite"></div><div id="next-area"></div></section></div>`;
     app.querySelector('.game>a').href = homeHref;
+    if(lesson2) {
+      app.querySelector('.game>a').textContent = 'Lesson overview';
+      app.querySelector('.game h1').insertAdjacentHTML('beforebegin',`<p class="badge">Mission ${games.findIndex(g=>g.id===game.id)+1} of ${games.length}</p>`);
+    }
     if(Number.isInteger(task.scene)) document.getElementById('prompt').insertAdjacentHTML('afterend',picture(task.scene));
     if(task.kind==='match' || task.kind==='sort') wirePairs(task);
     if(task.kind==='burner') {
@@ -185,6 +198,15 @@
     app.innerHTML = `<div class="game result"><span class="eyebrow">MISSION COMPLETE</span><h1 id="result-title" tabindex="-1">${escape(game.title)}</h1><div class="score-stage"><span class="result-label">${score===12 ? 'PERFECT SCORE' : score>=9 ? 'GREAT WORK, SCIENTIST' : 'MISSION ACCOMPLISHED'}</span><p class="score" aria-label="Your score is ${score} out of 12">${score}/12</p><p>${score===12 ? 'Every challenge solved on the first try.' : 'Mission complete. Replay to practise and improve your score.'}</p>${button('Hear my score','id="hear-score"','secondary')}</div><p class="meta">Best score: ${saved[game.id]}/12${persisted ? ' · Saved on this device' : ' · Saving is unavailable in this browser'}</p>${reviewing.length ? `<h2>Practise these ideas</h2><ul>${reviewing.map(i=>`<li>${escape(game.tasks[i].explain)}</li>`).join('')}</ul>` : ''}<div class="actions">${button('Replay mission','id="replay"')}<a class="button secondary" href="index.html">Choose another mission</a><a class="button secondary" href="../../index.html">Games hub</a></div></div>`;
     document.getElementById('replay').addEventListener('click',navigate);
     app.querySelector('.result .actions a').href = homeHref;
+    if(lesson2) {
+      const index = games.findIndex(g=>g.id===game.id);
+      const next = games[index+1];
+      const actions = app.querySelector('.result .actions');
+      actions.innerHTML = `${button(next ? 'Next section' : 'Restart lesson','id="next-section"')}<a class="button secondary" href="../../index.html">Games hub</a>`;
+      actions.insertAdjacentHTML('beforebegin',`<p class="badge">${next ? `Mission ${index+1} of ${games.length} complete · Up next: ${escape(next.title)}` : 'Lesson complete · You finished all 12 missions!'}</p>`);
+      if(!next) app.querySelector('.result>.eyebrow').textContent = 'LESSON COMPLETE';
+      document.getElementById('next-section').addEventListener('click',()=>startMission((next || games[0]).id));
+    }
     document.getElementById('hear-score').addEventListener('click', () => audio?.celebrate(score));
     document.getElementById('result-title').focus();
     audio?.celebrate(score);

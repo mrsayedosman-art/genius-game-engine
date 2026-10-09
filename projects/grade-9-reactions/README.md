@@ -43,3 +43,9 @@ pair matching, classification and an oxygen-control burner model. Matching and
 sorting require every card to be placed correctly before the round advances.
 All games share sound, spoken scores, local best scores and pauseable automatic
 progression. Illustrations are original ImageGen assets in `assets/`.
+
+Lesson 2 now follows a fixed sequence: Start lesson opens mission 1; each
+mission's result screen offers Next section to open the next mission directly
+without an intervening selection menu. Mission 12 ends the lesson and offers
+Restart lesson. Direct mission links still open the correct place in the
+sequence. The overview lists topics and mission order without mission links.
