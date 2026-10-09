@@ -1,4 +1,14 @@
 .sound-toggle{min-height:44px;padding:8px 14px;background:#203c5c;border:1px solid #7ca5ca;color:#fff;font-size:.875rem}
+header{align-items:center;column-gap:24px}
+.teacher-brand{display:flex;align-items:center;gap:16px;text-decoration:none;color:#fff;flex:1}
+.teacher-brand img{display:block;width:180px;height:auto;border-radius:8px;flex-shrink:0}
+.teacher-brand span{display:flex;flex-direction:column;gap:4px}
+.teacher-brand strong{font-size:1.05rem;color:#fff}
+.teacher-brand small{font-size:.875rem;color:#c5def6}
+.hub-link{font-size:.875rem}
+footer strong{font-weight:700;color:#10233f}
+@media(max-width:760px){.teacher-brand{flex-basis:100%}.teacher-brand img{width:150px}.teacher-brand{gap:12px}.teacher-brand strong{font-size:1rem}header{row-gap:14px}.hub-link{margin-right:auto}}
+@media(max-width:360px){.teacher-brand img{width:125px}.teacher-brand small{font-size:.8rem}}
 .auto-next{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:20px;color:#435870;font-size:.875rem}
 .auto-next button{font-size:.875rem}
 .score-stage{margin:28px auto 22px;max-width:580px;background:linear-gradient(135deg,#10233f,#075a69);border:3px solid #40cab3;border-radius:24px;padding:30px 24px;color:#fff;box-shadow:0 12px 35px #10233f20}
