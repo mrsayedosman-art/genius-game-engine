@@ -30,3 +30,16 @@ is saved locally. Audio support is optional and never blocks play.
 
 Correct answers advance automatically after three seconds, including the final
 result. A pause/resume control lets students take longer to read explanations.
+
+## Lesson 2 — Combustion and environmental pollution
+
+Open `index.html?lesson=2`. Six topic sections each contain two independent
+four-challenge games (12 games, 48 challenges). The direct lesson link is also
+available on the main hub and the lesson tabs. The supplied reference's PDF
+pages 56–73 cover the lesson used for original activity authoring.
+
+Interaction types include equation building, ordering, picture investigations,
+pair matching, classification and an oxygen-control burner model. Matching and
+sorting require every card to be placed correctly before the round advances.
+All games share sound, spoken scores, local best scores and pauseable automatic
+progression. Illustrations are original ImageGen assets in `assets/`.
